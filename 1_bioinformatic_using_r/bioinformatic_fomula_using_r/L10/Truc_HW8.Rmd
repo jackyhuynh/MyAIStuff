@@ -1,0 +1,202 @@
+---
+title: "HW8"
+author: "Truc Huynh"
+date: "4/11/2021"
+output:
+  word_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
+```
+
+# Part A:
+```{r databaseConnection}
+library(seqinr)
+
+# Source code for clean Alignment and print Multiple Alignment function
+source("cleanAlignment.R")
+source("printMultipleAlignment.R")
+```
+
+## Question 1
+Retrieve the protein sequences with the following accession numbers: 
+YP_009725305, YP_009724395, YP_009725297, QIS60515, 
+QIS60539, QIS60709
+```{r getData}
+# Read the fasta file in to review it
+virus <- read.fasta("VIRUS.FASTA")
+```
+Instead of using swissprot, I will download all that protein sequences by using the NCBI website by the following steps:
+- Search for the protein sequences by accession number
+- Add each of them to the basket.
+- Download all when done in fasta file format
+- Open each file and put them together
+
+## Question 2
+Use CLUSTAL program to align the sequences. Adjust the pair-wise 
+alignment parameters to use BLOSUM65 and a gap-opening penalty of 20. Provide 
+a screen-shot of the result
+![Img2](2.PNG)
+
+## Question 3
+Read the alignment into R and compute the score of the alignment
+```{r AlignmentScore}
+# Read in Multiple Alignment Sequences
+obj<-read.alignment(file="VIRUS.phy", format = 'phylip')
+
+# Download all the column scores  to file using ClustalX
+# Read the scores using read.table
+scores <- read.table(file="scores.qscores")
+
+# use the mean to calculate the average score
+mean(scores$V7)
+```
+## Question 4
+Print the first 40 characters of the alignment.
+```{r printAlignment}
+
+# Print the first 40 characters of the alignmnet Object using Substring
+for (i in 1:6)
+{
+ print( substr(obj[["seq"]][[i]],1,40))
+}
+
+cat("\n")
+print("Using Multiple Alignment Printting with chunk size = 40")
+cat("\n")
+
+# Can also use the printMultipleAlignment
+# Use the print Multiple Alignment with chunksize = 40 to print the alignment to compare
+printMultipleAlignment(obj,40)
+
+
+```
+## Question 5
+Write a function to find the longest stretch of the complete conserved 
+positions in the alignment. Test your function on the alignment of question A-3.
+Hint: “complete” means 100% identical letters.
+```{r longestStretchFunction}
+LongestStretch <- function(obj){
+  cleanAlignment(obj,100,100)
+}
+```
+
+```{r longestStretchTest}
+# Call Clean Alignment and set the minimum identical letter to 100
+LongestStretchAln<- LongestStretch(obj) 
+
+printMultipleAlignment(LongestStretchAln)
+```
+# Part B:
+## Question 1
+Read the sequence data and store them in a FASTA file
+
+There is 2 way to do this: 
+### Using Clusatx:
+- Read the .txt file into clustalX.
+- Save the file as a .FASTA file (export)
+### Using R
+
+```{r readDataFromText}
+data <- read.table("~/source/R_for_Bioinformatic/R_Bioinformatic_Basic/L10/data.txt", quote="\"", comment.char="")
+
+# Check the dimension and overview of the data
+View(data)
+
+# Write the file to the fasta file
+write.fasta(list(data[2,],data[4,],data[6,],data[8,],data[10,],data[12,],data[14,]),list(data[1,],data[3,],data[5,],data[7,],data[9,],data[11,],data[13,]),file.out = "dataR.fasta")
+```
+Both methods return the same result
+
+## Question 2
+Use CLUSTAL program to align the sequences. Use a penalty for a 
+gap opening equals 15 and a gap extension to be 3
+![Img3](3.PNG)
+
+## Question 3
+Read the alignment in R and print the first 20 positions of the 
+alignment for only the first 3 sequences
+```{r PrintAlignment}
+# Read in Multiple Alignment Sequences
+objAlignment<-read.alignment(file="data.phy", format = 'phylip')
+
+# Print the first 20 characters of the alignment Object (first 3 sequences) using Substring
+for (i in 1:3)
+{
+ print( substr(objAlignment[["seq"]][[i]],1,20))
+}
+
+```
+## Question 4
+Write a function to filter the alignment and keep only poorly conserved 
+regions. Your function should accept two parameters: the alignment object, and the 
+minimum percent of letters in an alignment column that must be gap characters for 
+the column to be kept.
+
+```{r filterAlignment}
+# the poorlyConservedVirusaln loop through each rows and compare the'-' value in the column.
+# Find the gap percentage in each column an compare it to the minimum gap percentage.
+# Store the column that have its percentage to the newAlignment Object seq and return it.
+
+poorlyConservedVirusaln<-function(alignment,minpcgap)  {
+  
+  # make a copy of the alignment to store the new alignment in:
+  newalignment <- alignment
+  
+  # find the number of sequences in the alignment
+  numseqs <- alignment$nb
+  
+  # empty the alignment in "newalignment")
+  for (j in 1:numseqs) { newalignment$seq[[j]] <- "" }
+  
+  # find the length of the alignment
+  alignmentlen <- nchar(alignment$seq[[1]])
+  
+  # look at each column of the alignment in turn:
+  for (i in 1:alignmentlen)
+    # Travel through the length of the alignment
+  {
+    # see what percent of the letters in this column are non-gaps:
+    gap <- 0
+    for (j in 1:numseqs)
+    {
+      seqj <- alignment$seq[[j]]
+      letterij <- substr(seqj,i,i)
+      if (letterij == "-") { gap <- gap + 1}
+    }
+    pcgap <- (gap*100)/numseqs
+    # Only consider this column if at least minpcnongap % of the letters are not gaps:
+    if (pcgap >= minpcgap)
+    {
+      # see what percent of the pairs of letters in this column are identical
+      for (j in 1:numseqs)
+      {
+        seqj <- alignment$seq[[j]]
+        letterij <- substr(seqj,i,i)
+        newalignmentj <- newalignment$seq[[j]]
+        newalignmentj <- paste(newalignmentj,letterij,sep="")
+        newalignment$seq[[j]] <- newalignmentj
+      }
+    }
+  }
+  return(newalignment)
+}
+
+```
+## Question 5
+Test the function in part (B-4) using the alignment in part (B-2) 
+considering at least 75% of gap in a position. Comment on the output
+```{r test}
+notcleanedvirusaln <- poorlyConservedVirusaln(objAlignment, 75)
+printMultipleAlignment(notcleanedvirusaln)
+
+```
+## Question 6
+Find the genetic distance of the alignment
+```{r distance}
+# The generic distance of the alignment can be calculate using  
+dist.alignment(objAlignment)
+
+```
