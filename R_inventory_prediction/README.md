@@ -1,4 +1,4 @@
-![img](https://github.com/jackyhuynh/Inventory_Prediction/blob/main/images/Forecast_Inventory_Levels.jpg)
+![img](https://github.com/jackyhuynh/data_science_and_visualization/blob/main/R_inventory_prediction/images/Forecast_Inventory_Levels.jpg)
 
 # Sale Inventory Prediction-Machine Learning
 
@@ -6,9 +6,9 @@
 The sale prediction models implement various machine learning tools to classify the WholeSale data base and make prediction for future inventory
 . The goal is forcus on performing cluster analyst on an inventory of a whole sale database (data was just a small sample) that data scientist can draw hypothesis from there. The full research paper can be found[ here](https://github.com/jackyhuynh/salePredictionModels-dataMining/blob/main/src/Markdown-WholeSale.pdf).
 
-![alt](https://github.com/jackyhuynh/salePredictionModels-dataMining/blob/main/src/picture/1.PNG)
+![alt](https://github.com/jackyhuynh/data_science_and_visualization/blob/main/R_inventory_prediction/images/1.PNG)
 
-Hypothesis from plot. According to the plot, we can easily see people who buy grocery have a 100% change to buy detergent paper (and vice versa); or people who buy detergent paper will have a change of 75% to 90% to buy milk (and vice versa)... Combine the plotting and statistic together will help business to make correct decision. Please click [here](https://github.com/jackyhuynh/salePredictionModels-dataMining/blob/main/src/Markdown-WholeSale.pdf) for the full statistic and prediction. 
+Hypothesis from plot. According to the plot, we can easily see people who buy grocery have a 100% change to buy detergent paper (and vice versa); or people who buy detergent paper will have a change of 75% to 90% to buy milk (and vice versa)... Combine the plotting and statistic together will help business to make correct decision. Please click [here](https://github.com/jackyhuynh/data_science_and_visualization/blob/main/R_inventory_prediction/images/Markdown-WholeSale.pdf) for the full statistic and prediction. 
 
 ### Technology
 * Business Analyst
