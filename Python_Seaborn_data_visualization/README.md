@@ -1,4 +1,4 @@
-# Sale Inventory Prediction-Machine Learning
+# Using Seaborn for Data Visualization
 
 ## Introduction
 
