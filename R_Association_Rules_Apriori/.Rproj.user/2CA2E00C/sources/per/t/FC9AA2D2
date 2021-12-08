@@ -1,0 +1,25 @@
+{
+    "id": "FC9AA2D2",
+    "path": "~/R/DataMining/AssociationRulesMining.Apriori/Script.R",
+    "project_path": "Script.R",
+    "type": "r_source",
+    "hash": "4110586838",
+    "contents": "",
+    "dirty": false,
+    "created": 1601397040669.0,
+    "source_on_save": false,
+    "relative_order": 2,
+    "properties": {
+        "tempName": "Untitled1",
+        "cursorPosition": "52,22",
+        "scrollLine": "29"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1601580668,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1601580668355,
+    "read_only": false,
+    "read_only_alternatives": []
+}

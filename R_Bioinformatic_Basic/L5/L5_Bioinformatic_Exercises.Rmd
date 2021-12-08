@@ -1,0 +1,326 @@
+---
+title: "Sequence Statistic for Bio-Informatic"
+author: "Truc Huynh"
+date: "2/17/2021"
+output:
+  word_document: default
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
+library(seqinr)
+
+```
+## Objectives
+- Explore features of the Bioconductor Packages
+- Query/read/Analyze sequence data.
+
+## Description
+
+Write R code to do each of the following tasks:
+
+### Question a
+
+Search the ACNUC “genbank” for the sequences:
+
+#### i. from “Mycobacterium tuberculosis” with accession number JX303316.
+``` {r MycobacteriumTuberculosis}
+choosebank("genbank")
+Q1 <- query("Q1", "AC= JX303316")
+
+```
+
+#### ii. from the “Escherichia coli” with accession number AE005174.
+``` {r EscherichiaColi}
+
+Q2 <- query("Q2", "AC= AE005174")
+
+```
+
+### Question b 
+
+Compute the fraction of each base in each sequence.
+
+``` {r ComputeFractionQ1}
+# Compute Sequence Q1 (Mycobacterium tuberculosis)
+
+t1 = count(getSequence(Q1$req[[1]]), wordsize = 1)
+(t1["a"])/sum(t1)*100
+(t1["g"])/sum(t1)*100
+(t1["c"])/sum(t1)*100
+(t1["t"])/sum(t1)*100
+
+```
+``` {r ComputeFractionQ2}
+
+# Compute Sequence Q2 (Escherichia coli)
+
+t2 = count(getSequence(Q2$req[[1]]), wordsize = 1)
+
+(t2["a"])/sum(t2)*100
+(t2["g"])/sum(t2)*100
+(t2["c"])/sum(t2)*100
+(t2["t"])/sum(t2)*100
+```
+
+### Question c
+
+For the first sequence, calculate the GC content for each 500-nucleotide
+chunks of the sequence. Create a sliding window scattered plot of GC content
+using red lines.
+
+``` {r slidingwindowplot}
+slidingwindowplot <- function(windowsize, inputseq)
+{
+  starts <- seq(1, length(inputseq)-windowsize, by = windowsize)
+  n <- length(starts) # Find the length of the vector "starts"
+  chunkGCs <- numeric(n) # Make a vector of the same length as vector "starts", but just containing zeroes
+  for (i in 1:n) {
+    chunk <- inputseq[starts[i]:(starts[i]+windowsize-1)]
+    chunkGC <- GC(chunk)
+    print(chunkGC)
+    chunkGCs[i] <- chunkGC
+  }
+  plot(starts,chunkGCs,type="b",xlab="Nucleotide start position",ylab="GC content")
+}
+```
+
+``` {r GC_Content}
+slidingwindowplot(500, getSequence(Q1$req[[1]]))
+
+```
+
+### Question d
+
+Write a function that finds and plots the count of each codon in a given
+sequence. Test your function on both sequences.
+``` {r PlotsCodonCounts}
+findPotentialCondonAndPlot <- function(sequence)
+{
+  # Define the codon vector
+  CondonTable = count(sequence, wordsize = 3)
+  plot(CondonTable,xlab="Codon",ylab="Count")
+}
+
+```
+
+Plot of codon's frequency in Sequence 1
+``` {r PlotsCodonCountsQ1}
+findPotentialCondonAndPlot(getSequence(Q1$req[[1]]))
+
+```
+
+Plot of codon's frequency in Sequence 2
+``` {r PlotsCodonCountsQ2}
+findPotentialCondonAndPlot(getSequence(Q2$req[[1]]))
+
+```
+
+### Question e
+
+For the second sequence, what are the top three most frequent 3-bp
+words?
+``` {r 3MostFrequent}
+# Get the total count of word size = 3
+t2.3 = count(getSequence(Q2$req[[1]]), wordsize = 3)
+
+# Copy of the total count table
+t2.3.1 <- t2.3
+
+# Store the index of the most frequent
+maxV = {}
+
+#Search for the index of the most frequent
+for (i in 1:3)
+{
+  maxV <- c(maxV,which.max(t2.3.1))
+  t2.3.1 <- t2.3.1[-c(which.max(t2.3.1))]
+}
+
+# Store the top 3 most frequent
+topThreeQ2 = {}
+
+# Store the 3 most frequent 
+for (i in maxV)
+{
+  topThreeQ2 <- c(topThreeQ2,t2.3[i]) 
+}
+
+# Display the 3 most frequent
+topThreeQ2
+
+# remove all unused data
+rm(i, maxV, t2.3, t2.3.1)
+
+```
+
+### Question f 
+
+Write a function to find and return all under-represented DNA words
+with a specific length in a given sequence. Test your function using the second
+sequence for 2- and 4- bp long words.
+
+#### Function 2 bp long:
+
+``` {r underRepresent}
+
+
+#################################################
+# Function to calculate the 2Bp nucleotides long
+#################################################
+underRepresent2Bp <- function(sequence)
+{
+  # This hold the count of 2 character words
+  word_frq = count(sequence, 2) / sum(count(sequence, 2))
+  
+  # This hold the count of 1 character words
+  Base_frq = count(sequence, 1) / sum(count(sequence, 1))
+  
+  # Create a data frame of 2 character words for access sub-string the base
+  temp <- data.frame(word_frq)
+  
+  # container hold the𝜌(Rho) is used to measure
+  # how over- or under-represented a particular DNA word is.
+  underRepresent.2.Bp = {
+  }
+  
+  for (val in 1:length(word_frq))
+  {
+    Names <- toString(temp[val, "Var1"]) # Get the nucleotides long names
+    
+    # Calculate the𝜌(Rho) based on names
+    percetage <-
+      word_frq[Names] / (Base_frq[substr(Names, 1, 1)] * Base_frq[substr(Names, 2, 2)])
+    if (percetage < 1)
+    {
+      underRepresent.2.Bp <- c(underRepresent.2.Bp, percetage)
+    }
+  }
+  
+  View(underRepresent.2.Bp)
+  
+  return (underRepresent.2.Bp)
+}
+
+#################################################
+# Function to calculate the 3Bp nucleotides long
+#################################################
+
+
+underRepresent3Bp <- function(sequence)
+{
+  # This hold the count of 2 character words
+  word_frq = count(sequence, 3) / sum(count(sequence, 3))
+  
+  # This hold the count of 1 character words
+  Base_frq = count(sequence, 1) / sum(count(sequence, 1))
+  
+  # Create a data frame of 2 character words for access sub-string the base
+  temp <- data.frame(word_frq)
+  
+  # container hold the𝜌(Rho) is used to measure
+  # how over- or under-represented a particular DNA word is.
+  underRepresent.3.Bp = {
+  }
+  
+  for (val in 1:length(word_frq))
+  {
+    Names <- toString(temp[val, "Var1"]) # Get the nucleotides long
+    
+    # Calculate the𝜌(Rho) based on names
+    percentage <-
+      word_frq[Names] / (Base_frq[substr(Names, 1, 1)] * Base_frq[substr(Names, 2, 2)] * Base_frq[substr(Names, 3, 3)])
+    if (percentage < 1)
+    {
+      underRepresent.3.Bp <- c(underRepresent.3.Bp, percentage)
+    }
+  }
+  
+  View(underRepresent.3.Bp)
+  
+  return (underRepresent.3.Bp)
+}
+
+
+#################################################
+# Function to calculate the 4Bp nucleotides long
+#################################################
+
+underRepresent4Bp <- function(sequence)
+{
+  # This hold the count of 4 character words
+  word_frq = count(sequence, 4) / sum(count(sequence, 4))
+  
+  # This hold the count of 1 character words
+  Base_frq = count(sequence, 1) / sum(count(sequence, 1))
+  
+  # Create a data frame of 4 character words for access sub-string the base
+  temp <- data.frame(word_frq)
+  
+  # container hold the𝜌(Rho) is used to measure
+  # how over- or under-represented a particular DNA word is.
+  underRepresent.4.Bp = {
+  }
+  
+  for (val in 1:length(word_frq))
+  {
+    Names <-
+      toString(temp[val, "Var1"]) # Get the four nucleotides long names
+    
+    # Calculate the𝜌(Rho) based on names by substring each nucleotides
+    percentage <-
+      word_frq[Names] / (Base_frq[substr(Names, 1, 1)] * Base_frq[substr(Names, 2, 2)]
+                         * Base_frq[substr(Names, 3, 3)] * Base_frq[substr(Names, 4, 4)])
+    if (percentage < 1) {
+      underRepresent.4.Bp <- c(underRepresent.4.Bp, percentage)
+    }
+  }
+  
+  View(underRepresent.4.Bp)
+  
+  return (underRepresent.4.Bp)
+}
+
+
+underRepresent <- function(sequence, SpecLength) {
+  if (SpecLength == 4){
+    underRepresent4Bp(sequence)    
+  } else if (SpecLength == 2){
+    underRepresent2Bp(sequence)
+  } else if (SpecLength == 3){
+    underRepresent3Bp(sequence)
+  } else{
+    print("Specific Length is undefined")
+  }
+}
+
+```
+
+
+``` {r TestUnderRepresent}
+# Test the under represent two nucleotides long names
+underRepresent(getSequence(Q2$req[[1]]),2)
+
+# test the under present four nucletides long names
+underRepresent(getSequence(Q2$req[[1]]),4)
+
+# Test the under represent three nucleotides long names
+underRepresent(getSequence(Q2$req[[1]]),3)
+```
+
+
+
+``` {r close}
+closebank()
+```
+
+## Notes:
+
+- Handwritten answers are not allowed!
+
+- Use Rmarkdown (https://rmarkdown.rstudio.com/) and provide a neatly
+formatted “pdf” file showing both code and output.
+• Include your name as a comment at the beginning of the script file.

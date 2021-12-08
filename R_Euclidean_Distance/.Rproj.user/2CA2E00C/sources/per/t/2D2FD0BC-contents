@@ -1,0 +1,185 @@
+---
+title: "CS 590 Introduction to Bioinformatics Homework Assignment 2"
+author: "Truc Huynh"
+date: "1/31/2021"
+output:
+  pdf_document: default
+---
+
+```{r setup, include=TRUE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+ 
+## Objectives:
+
+- Explore features of the R programming languages
+- Use objects, functions, and data structures.
+
+
+## Question 1:
+
+Create a sequence of random numbers from 25 to 60 and print their average.
+
+### Answer:
+
+```{r seq}
+# Create a sequence from 25 to 60 with 20 values.
+# use the mean () function to calculate the average
+mean(runif(n = 20, min = 25, max = 60))
+```
+
+## Question 2:
+
+Create a vector which contains 25 random integer values between -20 and +20 and display the sum of only the negative numbers among them.
+
+### Answer:
+
+```{r vector}
+
+# sequence with 25 values using the sample function.
+sequence = sample(-20:20, 25, replace = TRUE);
+
+# collect the negative number in the list
+negativeSeq = sequence[sequence<0];
+
+# sum all the negative number using sum () function
+sum(negativeSeq)
+```
+
+## Question 3:
+
+Create four vectors a,b,c,d with 3 integers each. Combine the vectors to form a matrix where each column represents a vector. Print the size of the matrix as well as its contents.
+
+### Answer:
+
+#### Matrix create and dimension:
+
+The matrix content is:
+
+```{r matrix}
+# Create four vectors a,b,c,d with 3 integers each
+a = c(1,2,3)
+b = c(4,5,6)
+c = c(7,8,9)
+d = c(10,11,12)
+
+# Combine the vectors using the r base data.frame() funcyion
+matrix_ <- data.frame(a,b,c,d)
+
+# Display the dimension of the vector using the dim() function
+dim(matrix_)
+```
+
+#### Matrix content:
+
+The draw data is:
+
+```{r matrix_content}
+# display the matrix content
+matrix_
+
+```
+
+## Question 4:
+
+Create a Data frame to store at least 4 details of 5 employees. Name each row with the employees last name. Print the contents of the Data fame as well as its dimensions.
+
+### Answer:
+
+```{r employee_data}
+# employee id
+id = c(1,2,3,4,5)
+
+# employee full name
+name = c('Truc Huynh', 'Kristina Bond', 'Wrachu Nata', 'Jenny Nguyen', 'James Bond')
+
+# employee phone number
+phone = c(1112220000,2223330000,4445550000,6667770000,7778880000)
+
+# manager
+manager = c('yes','no','no','no','no')
+
+# create matrix Employee
+matrixEmployee <- data.frame(id, name, phone, manager)
+```
+
+### Print Matrix Employee:
+  
+  The raw data is:
+
+```{r print_employee_matrix}
+# print the content of matrixEmployee
+matrixEmployee
+```
+
+### Employee data frame size:
+
+  The dimension of the matrix is:
+
+```{r }
+# get dimension of matrixEmployee
+dim(matrixEmployee)
+```
+
+## Question 5:
+
+Define a function to find common elements from two vectors and return the result as a third vector. Test your function using at least three different sample inputs.
+
+### Answer:
+
+```{r common_element}
+
+# create function common_element
+# input: 2 vector of different size
+# output: vector of common elements, return NULL if no common element
+
+common_element <- function(x,y){
+  
+  # the intersect base R return the common element between 2 vectors
+  z <- intersect(x, y)
+
+  return (z)
+}
+
+
+```
+
+### Test 1:
+
+  Test 1 is satisfied with integer and repeated number. Please note number 9 was repeated 2 times in both vector.
+  
+```{r common_element_test1}
+
+# test integer
+common_element(
+  c(1,2,3,4,5,6,7,8,9,9),
+  c(8,9,11,12,12,13,14,9))
+
+```
+
+### Test 2:
+
+  Test 2 is satisfied with characters and repeated chars. Please note char 'T' was repeated 2 times in both vector.Please notify the upper and lower chars is sensitive and mark as different.
+  
+```{r common_element_test2}
+
+# test chars, string
+common_element( 
+  c('T','b','c','d','Y','t','u','We will','it','none','cv','bl'),
+  c('t','T','T','t','q','U','c','T','D','d','A','T','We will','rock','it',"none"))
+
+``` 
+
+### Test 3:
+
+  Test 3 is satisfied with combine of integer and characters. All the combine was based on the rules of chars combine (test 2) and integer combine (test 1)
+
+```{r common_element_test3}
+
+# test chars, string, integer, and float
+common_element(
+  c('T','b','c',11,12,54,67,'d','Y','t','u',1,2,3,4,5,6,7,8,9,9,1.1,3.4,7.99,'t','u','We will','it','none','cv','bl'),
+  c('t','T','T','t','q','U','c','T','D','d','A','T',8,9,11,12,12,'rock','it',"none",13,14,9,7.999,7.99))
+
+
+``` 

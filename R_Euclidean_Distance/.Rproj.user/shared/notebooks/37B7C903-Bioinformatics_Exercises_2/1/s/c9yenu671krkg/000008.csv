@@ -1,0 +1,135 @@
+"1","
+"
+"1","  Binaries will be installed
+"
+"2","trying URL 'https://cran.rstudio.com/bin/windows/contrib/4.0/boot_1.3-26.zip'
+"
+"2","Content type 'application/zip'"
+"2"," length 642112 bytes (627 KB)
+"
+"2","downloaded 627 KB
+
+"
+"2","trying URL 'https://cran.rstudio.com/bin/windows/contrib/4.0/class_7.3-18.zip'
+"
+"2","Content type 'application/zip'"
+"2"," length 108606 bytes (106 KB)
+"
+"2","downloaded 106 KB
+
+"
+"2","trying URL 'https://cran.rstudio.com/bin/windows/contrib/4.0/codetools_0.2-18.zip'
+"
+"2","Content type 'application/zip'"
+"2"," length 91116 bytes (88 KB)
+"
+"2","downloaded 88 KB
+
+"
+"2","trying URL 'https://cran.rstudio.com/bin/windows/contrib/4.0/foreign_0.8-81.zip'
+"
+"2","Content type 'application/zip'"
+"2"," length 332213 bytes (324 KB)
+"
+"2","downloaded 324 KB
+
+"
+"2","trying URL 'https://cran.rstudio.com/bin/windows/contrib/4.0/KernSmooth_2.23-18.zip'
+"
+"2","Content type 'application/zip'"
+"2"," length 115903 bytes (113 KB)
+"
+"2","downloaded 113 KB
+
+"
+"2","trying URL 'https://cran.rstudio.com/bin/windows/contrib/4.0/MASS_7.3-53.zip'
+"
+"2","Content type 'application/zip'"
+"2"," length 1187898 bytes (1.1 MB)
+"
+"2","downloaded 1.1 MB
+
+"
+"2","trying URL 'https://cran.rstudio.com/bin/windows/contrib/4.0/Matrix_1.2-18.zip'
+"
+"2","Content type 'application/zip'"
+"2"," length 4506373 bytes (4.3 MB)
+"
+"2","downloaded 4.3 MB
+
+"
+"2","trying URL 'https://cran.rstudio.com/bin/windows/contrib/4.0/mgcv_1.8-33.zip'
+"
+"2","Content type 'application/zip'"
+"2"," length 3335464 bytes (3.2 MB)
+"
+"2","downloaded 3.2 MB
+
+"
+"2","trying URL 'https://cran.rstudio.com/bin/windows/contrib/4.0/nlme_3.1-151.zip'
+"
+"2","Content type 'application/zip'"
+"2"," length 2376942 bytes (2.3 MB)
+"
+"2","downloaded 2.3 MB
+
+"
+"2","trying URL 'https://cran.rstudio.com/bin/windows/contrib/4.0/nnet_7.3-15.zip'
+"
+"2","Content type 'application/zip'"
+"2"," length 137636 bytes (134 KB)
+"
+"2","downloaded 134 KB
+
+"
+"2","trying URL 'https://cran.rstudio.com/bin/windows/contrib/4.0/spatial_7.3-13.zip'
+"
+"2","Content type 'application/zip'"
+"2"," length 164803 bytes (160 KB)
+"
+"2","downloaded 160 KB
+
+"
+"2","trying URL 'https://cran.rstudio.com/bin/windows/contrib/4.0/survival_3.2-7.zip'
+"
+"2","Content type 'application/zip'"
+"2"," length 7952964 bytes (7.6 MB)
+"
+"2","downloaded 7.6 MB
+
+"
+"1","package ‘boot’ successfully unpacked and MD5 sums checked
+"
+"1","package ‘class’ successfully unpacked and MD5 sums checked
+"
+"1","package ‘codetools’ successfully unpacked and MD5 sums checked
+"
+"1","package ‘foreign’ successfully unpacked and MD5 sums checked
+"
+"1","package ‘KernSmooth’ successfully unpacked and MD5 sums checked
+"
+"1","package ‘MASS’ successfully unpacked and MD5 sums checked
+"
+"1","package ‘Matrix’ successfully unpacked and MD5 sums checked
+"
+"1","package ‘mgcv’ successfully unpacked and MD5 sums checked
+"
+"1","package ‘nlme’ successfully unpacked and MD5 sums checked
+"
+"1","package ‘nnet’ successfully unpacked and MD5 sums checked
+"
+"1","package ‘spatial’ successfully unpacked and MD5 sums checked
+"
+"1","package ‘survival’ successfully unpacked and MD5 sums checked
+"
+"1","
+"
+"1",""
+"1","The downloaded binary packages are in
+	C:\Users\Valued Customer\AppData\Local\Temp\RtmpiwQTzp\downloaded_packages"
+"1",""
+"1","
+"
+"0","tinytex::tlmgr_update()"
+"2","tlmgr update --all --self
+"

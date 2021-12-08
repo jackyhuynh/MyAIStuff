@@ -1,0 +1,110 @@
+---
+title: "TrucHuynh_HW7"
+author: "Truc Huynh"
+date: "3/20/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
+library(seqinr)
+library(tidyverse)
+library(Biostrings)
+library(Peptides)
+data("BLOSUM50")
+source("printPairwiseAlignment.R")
+source("generateSeqsWithMultinomialModel.R")
+```
+
+## Objectives 
+• Query/read/Analyze Protein sequence data.
+• Use standard score matrices.
+• Score and analyze sequence alignments
+
+## Description
+Consider the Brugia malayi Vab-3 protein (UniProt accession A0A1I9G1P5) and the Loa 
+loa Vab-3 protein (UniProt accession A0A1S0U2K5)
+
+### Retrieve the two sequences and store them in two different objects. 
+
+```{r readfasta, echo=FALSE}
+# Download the two sequences and store in 1 fasta file
+MySeq <- read.fasta("uniProtList.fasta")
+
+# Get Sequences get the sequences out of the string
+Seq1 <- getSequence(MySeq[[1]]) 
+Seq2 <- getSequence(MySeq[[2]])
+
+# %>% toupper() %>% c2s
+```
+
+
+### For each sequence, compute the percentage of each amino acid and plot them. Generate only one figure for both sequences.
+
+```{r piecharts}
+# Compute the percentage of each amino acid
+tt1 <- aaComp(Seq1%>% toupper() %>% c2s)
+tt2 <- aaComp(Seq2%>% toupper() %>% c2s)
+tt1
+tt2
+old.par <- par(mfrow=c(1, 2))
+pie(tt1[[1]],main="Seq1")
+pie(tt2[[1]],main="Seq2")
+par(old.par)
+```
+### create a dot plot for the first ORF in each of the sequences. Comment on the result.
+
+```{r dotPlot}
+dotPlot(Seq1,Seq2)
+```
+
+There is a strong diagnol in between the two sequences. that means 2 sequences contain many identical amino acids at the same (or very similar) positions along their lengths.
+
+### Find the optimal global alignment 
+between the two sequences and print the alignment for the first 20 nucleotides. Use a score +2 for a match, -1 for a mismatch, and the gap penalty = 2.
+
+```{r optimalGlobalAlignment}
+Str1<-Seq1%>% toupper() %>% c2s
+Str2<-Seq2%>% toupper() %>% c2s
+
+AlignGlobal<- Biostrings::pairwiseAlignment(Str1,Str2, gapOpening = 2,substitutionMatrix = BLOSUM50)
+```
+```{r printAlignment}
+printPairwiseAlignment(AlignGlobal,20)
+```
+
+5. (15 points) Is the global alignment statistically significant? Explain your answer.
+```{r generateRandomScores}
+
+set.seed(123)
+
+randomSeq <- generateSeqsWithMultinomialModel(Str2,100)
+
+randomscores <- double(100)
+
+for (i in 1:100)
+{
+  score <- pairwiseAlignment(Str1, pattern=randomSeq[[i]], substitutionMatrix = BLOSUM50, gapOpening = 2,scoreOnly = TRUE)
+  randomscores[i] <- score
+}
+```
+
+```{r PValue}
+# Alignment Score from Seq1 and Seq2
+AlignGlobal@score
+
+# Find all the Score > AlignGlobal@score and /1000
+sum(randomscores>=AlignGlobal@score)/1000
+```
+Since the P-value that we calculate for an alignment of two sequences is 0.1 and > 0.05, we conclude that the alignment score is not statistically significant, and that the sequences are probably not related. 
+
+6. (20 points) What is the score of the optimal local alignment between the two 
+sequences?What is the length of the aligned segments? Use a score +3 for a match, 
+-2 for a mismatch, the gap penalty = 4, and gap extension = 2.
+```{r AlignLocal}
+sigma2 <- nucleotideSubstitutionMatrix(match = 3, mismatch = -2, baseOnly = FALSE, type = "RNA")
+
+AlignLocal<- Biostrings::pairwiseAlignment(Str1,Str2, gapOpening = 4, gapExtension= 2, substitutionMatrix = BLOSUM50,type="local" )
+
+AlignLocal
+```
