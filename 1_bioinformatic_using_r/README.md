@@ -14,7 +14,7 @@ Please refer to the Report.PDF in each folder solution for more details.
 
 - fasta file can be download at [NCBI](https://www.ncbi.nlm.nih.gov/)
 
-<img src="https://github.com/jackyhuynh/data_science_and_visualization/tree/main/1_bioinformatic_using_r/images/bioinformatics.png" width="400" height="400" margin-left:auto margin-right:auto>
+<img src="https://github.com/jackyhuynh/data_science_and_visualization/blob/main/1_bioinformatic_using_r/images/bioinformatics.png" width="400" height="400" margin-left:auto margin-right:auto>
 
 ## What is DNA
 
@@ -26,7 +26,7 @@ DNA is a frame work it is not Protein.
 
 ## Central Dogma
 
-![Img](https://github.com/jackyhuynh/data_science_and_visualization/tree/main/1_bioinformatic_using_r/images/DNA_Replicate.PNG)
+![Img](https://github.com/jackyhuynh/data_science_and_visualization/blob/main/1_bioinformatic_using_r/images/DNA_Replicate.PNG)
 
 ## Gene
 
@@ -34,7 +34,7 @@ A gene i sthe basic physicial and functional unit of heredity
 Gene can vary in size from a few hundred DNA bases to more than 2 million bases
 TheHuman Genome Projectes timated that humans have between 20,000 and 25,000 genes
 
-![Img](https://github.com/jackyhuynh/data_science_and_visualization/tree/main/1_bioinformatic_using_r/images/gene.PNG)
+![Img](https://github.com/jackyhuynh/data_science_and_visualization/blob/main/1_bioinformatic_using_r/images/gene.PNG)
 
 [**Exercise 1**]()
 
