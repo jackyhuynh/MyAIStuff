@@ -14,7 +14,7 @@ Please refer to the Report.PDF in each folder solution for more details.
 
 - fasta file can be download at [NCBI](https://www.ncbi.nlm.nih.gov/)
 
-<img src="https://github.com/jackyhuynh/data_science_and_visualization/blob/main/1_bioinformatic_using_r/images/bioinformatics.png" width="400" height="400" margin-left:auto margin-right:auto>
+<img src="https://github.com/jackyhuynh/collection_of_data_science_and_data_visualization_exercise/blob/main/R_for_bioinformatic/images/bioinformatics.png" width="400" height="400" margin-left:auto margin-right:auto>
 
 ## What is DNA
 
