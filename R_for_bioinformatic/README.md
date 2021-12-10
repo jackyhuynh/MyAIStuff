@@ -123,7 +123,7 @@ There is chart and plot in each small exercises. Please refer to each of them fo
 ## Deployment
 This research and its small application can be use for many bioinformatic application
 
-More continuous attributes can just be added to the application, and it should work fine (with a bit of modification). Please refer to my research paper for a better understanding. [Full research paper can be found here](https://github.com/jackyhuynh/salePredictionModels-dataMining/blob/main/src/Markdown-WholeSale.pdf).
+More continuous attributes can just be added to the application, and it should work fine (with a bit of modification). Please refer to my research paper for a better understanding. [Full research paper can be found here](https://github.com/jackyhuynh/collection_of_data_science_and_data_visualization_exercise/tree/main/R_for_bioinformatic/bioinformatic_fomula_using_r).
 
 I will not guarantee that this application will work "Big data set". If you are interested in a "Big(or Large) data set" please join here for [an argument](https://www.researchgate.net/post/How-much-data-is-considered-to-be-small-data-Large-data-in-data-mining) on what data set is considered a large data set in data mining.
 
