@@ -5,3 +5,4 @@ Include many discipline:
 - Security
 - Algorithim
 - Business Analyst
+- Deep Learning
