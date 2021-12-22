@@ -1,0 +1,596 @@
+---
+title: "Huynh_Truc_midterm"
+author: "Truc"
+date: "3/27/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(dplyr)
+library(gdata)
+library(ggplot2)
+library(janitor)   #convert row to column names
+library(lubridate) #convert char to date datatype
+library(knitr)     #create knitr table
+#Set work space
+setwd("C:/Users/jacky/Documents/R_Project/Huynh_Truc_midterm")
+```
+
+
+```{r function, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+#Read file-----------------------------------------------------------
+#' 
+#' Objective: Function to read the data from the csv file
+#'  and store it in local dataframe
+#' 
+#' Parameter: the file name as a string value(file.name)
+#' 
+#' Return: un-tidy data frame
+#' 
+read.data.input <- function(file.name)
+{
+  un.clean.data <-
+    read.csv(
+      file.name ,
+      header = FALSE,
+      quote = "\"",
+      stringsAsFactors = FALSE,
+      strip.white = TRUE
+    )
+  
+ 
+  returnValue(un.clean.data)
+}
+
+#Create Vector-----------------------------------------------------------
+#'
+#' Fuction to create sequence vector 
+#' 
+#' Parmeter: minimum number (min.num)
+#' Parmeter: maximum number (max.num)
+#' 
+#' Return: a vector of column index
+vector.creator<-function(min.num, max.num)
+{
+  cols.nums <- c()
+  cols.nums[1] = min.num
+  for (i in seq(min.num, max.num, 1)) {
+    cols.nums[i] = i + 1
+  }
+  returnValue(cols.nums)
+}
+#Clean Data-----------------------------------------------------------
+#' 
+#' Objective: Get the total number of case in the same country
+#' 
+#' Parameter: Receive an untidy data frame
+#' 
+#' Return: return a cleaner dataframe
+#' 
+get.country.total.case<- function (un.clean.data)
+{
+  #clear unnecessary column latitude, longtitude, Province, State
+  un.clean.data$V3 <- NULL
+  un.clean.data$V4 <- NULL
+  un.clean.data$V1 <- NULL
+  # store the first column to sort the data
+  col.data.name <- data.frame(un.clean.data[1,])
+  # removing first row to get the sum of each country
+  temp.data <- un.clean.data[-(1),]
+  #Call vector Creator to create a vector to store column index
+  cols.nums <- vector.creator(2, 60)
+  #convert char column to integer column
+  temp.data[cols.nums] <- sapply(temp.data[cols.nums], as.numeric)
+  #sum up all state/province in one country
+  clean.data <- aggregate(. ~ V2, temp.data, sum)
+  #add the first row back to the datafra
+  clean.data <- rbind(col.data.name, clean.data)
+  returnValue(clean.data)
+}
+
+#Tidy data-----------------------------------------------------------
+#' 
+#' Objective: tidy the dataframe
+#' Objective: adjust all datatype, column names, and values correctly
+#' 
+#' Parameter: Receive an untidy data frame
+#' 
+#' Return: return tidy dataframe
+#' 
+tidy.dataframe <- function(clean.data)
+{
+  #Change the top row to column
+  temp.data <- data.frame(t(clean.data))
+  #
+  temp.data <-
+   data.frame(lapply(temp.data, as.character), stringsAsFactors = FALSE)
+  #Change the first value to Date
+  temp.data[1, 1] <- 'Date'
+  clean.data <- data.frame(temp.data, header = TRUE)
+  #Convert first row to column header
+  clean.data <- temp.data %>%
+    row_to_names(row_number = 1) %>%
+    clean_names()
+  #Convert first column to date data type
+  clean.data <- clean.data %>%
+    mutate(date = mdy(date))
+  #Create the column vector
+  cols.nums <- vector.creator(2, 166)
+  # Convert Character into numeric
+  clean.data[cols.nums] <- sapply(clean.data[cols.nums], as.numeric)
+  returnValue(clean.data)
+}
+
+```
+
+<br>
+<h2> 1.Introduction</h2>
+<h3> 1.1 Summary:</h3>
+<p>The data is provided by Johns Hopkins CSSE (CSSEGISandData/COVID-19,n.d.) for the 2019 Novel Coronavirus Visual Dashboard. Also, Supported by ESRI Living Atlas Team and the Johns Hopkins University Applied Physics Lab (JHU APL).</p>
+
+<br>
+<h3> 1.2 Variables:</h3>
+<p> **Original data frame:** 
+  <ul>
+    <li>Province/State: Province, State of the following country.</li> 
+    <li>Country/Region: Country name.</li> 
+    <li>Lat: Latitude of the area.</li> 
+    <li>Long: Longtitude of the area.</li> 
+    <li>Other column names contain the date of records, column variable contain the number of record by day.</li>
+  </ul> 
+</p>
+<p>
+**Tidy data frame:** 
+  <ul>
+    <li>date: The date of each record.</li>
+    <li>Other column contain the number of people of each country's record. </li>
+    <li>active: the number of active patient (non death nor recover ) </li>
+    <li>recover %: The percentage of recovery patient </li>
+    <li>mortality %: The percentage of death patient </li>
+    <li>active %: The percentage of COVID patient that active </li>
+  </ul>
+</p>
+ <br>
+```{r import.and.tidy}
+knitr::opts_chunk$set(echo = FALSE)
+#Tidy Confirmed.csv-----------------------------------------------------------
+#' 
+#' Import and Tidy data from the Confirmed.csv
+#'
+#Import the data from csv file
+un.clean.data <-read.data.input('data/time_series_19-covid-Confirmed.csv')
+# Get the sum of case in each country
+clean.data <- get.country.total.case(un.clean.data)
+# Tidy the data set
+confirmed.case <- tidy.dataframe(clean.data)
+
+#Tidy Death.csv-----------------------------------------------------------
+#' 
+#' Import and Tidy data from the Deaths.csv
+#'
+#Import the data from csv file
+un.clean.data<- read.data.input('data/time_series_19-covid-Deaths.csv')
+# Get the sum of case in each country
+clean.data <- get.country.total.case(un.clean.data)
+# Tidy the data set
+deaths.case <- tidy.dataframe(clean.data)
+
+#Tidy Recovered.csv-----------------------------------------------------------
+#' 
+#' Import and Tidy data from the Recovered.csv
+#'
+#Import the data from csv file
+un.clean.data<- read.data.input('data/time_series_19-covid-Recovered.csv')
+# Get the sum of case in each country
+clean.data <- get.country.total.case(un.clean.data)
+# Tidy the data set
+recovered.case <- tidy.dataframe(clean.data)
+#Clean up-------------------------------------------------
+#'
+#' Remove un-use data frame
+#' 
+rm("un.clean.data", "clean.data")
+```
+
+<h2> 2.COVID Worldwide</h2>
+<h3> 2.1 Worldwide COVID-19 Trend</h3>
+<p>Plot show country around the world affected by COVID since January through March.</p><br>
+```{r worldwide.trend, echo=FALSE}
+#Create World wide table--------------------------------------------------
+#' Calculate worldwide total death, recoved, and confirmed
+#'
+# Calculate the total death world wide each day
+total.death <- data.frame(rowSums(deaths.case[, 2:167]))
+# Calculate the total confirmed world wide each day
+total.confirmed <- data.frame(rowSums(confirmed.case[, 2:167]))
+# Calculate the total recovered case world wide each day
+total.recovered <- data.frame(rowSums(recovered.case[, 2:167]))
+# Get the date
+date.data <- data.frame(confirmed.case[1])
+# Combine the 4 data frame to the report day
+worldwide.trend <-
+  cbind(date.data, total.confirmed, total.death, total.recovered)
+colnames(worldwide.trend)<-
+  c("date", "confirmed", "death", "recovered") 
+#Clean up-------------------------------------------------
+#'
+#' Remove un-use data frame
+#'
+rm("total.death", "total.confirmed", "total.recovered","date.data")
+#Print plot-------------------------------------------------
+#' 2.1
+#' Print out plot
+#'
+ggplot(data = worldwide.trend) +
+  geom_line(mapping = aes(x = date,
+                            y = confirmed,color="confirmed")) +
+  geom_point(mapping = aes(x = date,
+                          y = confirmed,color="confirmed"))+
+  geom_line(mapping = aes(x = date,
+                            y = death,color="death")) +
+  geom_point(mapping = aes(x = date,
+                          y = death,color="death")) +
+  geom_line(mapping = aes(x = date,
+                            y = recovered,color="recovered"))+
+  geom_point(mapping = aes(x = date,
+                          y = recovered,color="recovered"))
+```
+<br>
+<p>Conclusion: while the confirmed case keep increased, the change that the infected person will death is still very low.</p>
+<br>
+<h3> 2.2 Cases worldwide by date:</h3>
+<p> Show first 10 day of the world record since COVID-19 outbreak</p>
+```{r worldwide.by.date,echo=FALSE,message=FALSE,warning=FALSE}
+#Create worldwide by date---------------------------------------------
+#'
+#' 2.2 Case world by date
+#' Create active column
+worldwide.trend$active <- worldwide.trend$confirmed -
+  worldwide.trend$death - worldwide.trend$recovered
+# Create recovery % column
+worldwide.trend$recovery.percent <-  
+  round((worldwide.trend$recovered/worldwide.trend$confirmed)*100,3)
+# Create mortality % column
+worldwide.trend$mortality.percent <-  
+  round((worldwide.trend$death/worldwide.trend$confirmed)*100,3)
+
+```
+
+```{r worldwide.trend.table, echo=FALSE,message=FALSE,warning=FALSE}
+# Knit table
+kable(worldwide.trend,format = "markdown", row.names = FALSE, padding =7, caption = "worldwide case")  
+```
+<br>
+<h3> 2.3 Cases worldwide by country:</h3>
+<p> Show infected country order by infected case</p>
+```{r world.by.country,message=FALSE,warning=FALSE,echo=FALSE}
+#World by country-------------------------------------------------
+#'
+#' 2.3 Case world by country
+#' Create active column
+#' #-------------------------------------------------
+#'
+#' Calculate worldwide total death, recoved, and confirmed
+#'
+# Calculate the total death world wide each day
+total.death <- data.frame(colSums(deaths.case[1:60,-1])) 
+# Calculate the total confirmed world wide each day
+total.confirmed <- data.frame(colSums(confirmed.case[1:60,-1]))
+# Calculate the total recovered case world wide each day
+total.recovered <- data.frame(colSums(recovered.case[1:60,-1]))
+# Get the country name
+df <- tibble::rownames_to_column(total.confirmed, "country")
+# add the data together
+case.by.country<-cbind(df,total.death,total.recovered)
+colnames(case.by.country)<-
+  c("country", "confirmed", "death", "recovered") 
+#-------------------------------------------------
+#' 
+#' Create active column
+case.by.country$active <- case.by.country$confirmed -
+  case.by.country$death - case.by.country$recovered
+# Create recovery % column
+case.by.country$recovery.percent <-  
+  round((case.by.country$recovered/case.by.country$confirmed)*100,3)
+# Create mortality % column
+case.by.country$mortality.percent <-  
+  round((case.by.country$death/case.by.country$confirmed)*100,3)
+
+case.by.country<-case.by.country[ order(-case.by.country$confirmed), ] 
+
+#-------------------------------------------------
+#'
+#' Remove un-use data frame
+#'
+rm("total.death", "total.confirmed", "total.recovered","df")
+
+```
+```{r case.by.country.table,echo=FALSE}
+# Knit table
+
+kable(case.by.country,format = "markdown", row.names = FALSE, padding =7, caption = "worldwide all case by country") 
+```
+<p> The mortality percent seem lower than the recovery percent in most country. Especially country has the older population. </p>
+<br>
+<h3> 2.4 Cases worldwide's trend (exclude China):</h3>
+<p> Plot to see infected case around the world that exclude China.</p>
+```{r world.exclude.china, echo=FALSE, message=FALSE, warning=FALSE}
+#-------------------------------------------------
+#' 
+#' 2.4
+#' Create new table without china
+#' 
+#' Calculate worldwide total death, recoved, and confirmed
+#'
+# exclude china
+exclude.china <- function(dataframe)
+{
+  local.frame<-dataframe
+  local.frame$china<-NULL
+  # Calculate the total death world wide each day
+  local.frame <- 
+    data.frame(rowSums(local.frame[, 2:166]))
+}
+
+# Calculate the total confirmed world wide each day
+total.death<-exclude.china(deaths.case)
+total.confirmed <- exclude.china(confirmed.case)
+total.recovered <- exclude.china(recovered.case)
+
+# Get the date
+date.data <- data.frame(confirmed.case[1])
+
+# Combine the 4 data frame to the report day
+worldwide.no.china <-
+  cbind(date.data, total.confirmed, total.death, total.recovered)
+colnames(worldwide.no.china)<-
+  c("date", "confirmed", "death", "recovered") 
+#-------------------------------------------------
+#'
+#' Remove un-use data frame
+#'
+rm("total.death", "total.confirmed", "total.recovered","date.data")
+#-------------------------------------------------
+#' 2.4
+#' Print out plot
+#'
+ggplot(data = worldwide.no.china) +
+  geom_line(mapping = aes(x = date,
+                          y = confirmed,color="confirmed")) +
+  geom_point(mapping = aes(x = date,
+                           y = confirmed,color="confirmed"))+
+  geom_line(mapping = aes(x = date,
+                          y = death,color="death")) +
+  geom_point(mapping = aes(x = date,
+                           y = death,color="death")) +
+  geom_line(mapping = aes(x = date,
+                          y = recovered,color="recovered"))+
+  geom_point(mapping = aes(x = date,
+                           y = recovered,color="recovered"))
+
+
+```
+<p>While take out China, the confirmed case is drop dramatically. However the recovered case also drop. Which being said, China has the most infected people, but they are doing pretty good to recover.</p>
+<br>
+<h3> 2.5 Cases worldwide's total cases exclude China:</h3>
+<p> First 10 day of the outbreak in the world that exclude China.</p>
+
+```{r worldwide.no.china, echo=FALSE, message=FALSE, warning=FALSE}
+#-------------------------------------------------
+#'
+#' 2.5 Case world by date
+#' Create active column
+worldwide.no.china$active <- worldwide.no.china$confirmed -
+  worldwide.no.china$death - worldwide.no.china$recovered
+# Create recovery % column
+worldwide.no.china$recovery.percent <-  
+  round((worldwide.no.china$recovered/worldwide.no.china$confirmed)*100,3)
+# Create mortality % column
+worldwide.no.china$mortality.percent <-  
+  round((worldwide.no.china$death/worldwide.no.china$confirmed)*100,3)
+
+
+```
+
+```{r no.china.output, echo=FALSE,message=FALSE,warning=FALSE}
+# Knit table
+kable(worldwide.no.china,format = "markdown", row.names = FALSE, padding =7, caption = "worldwide case") 
+```
+<p>Conclusion: The total infected case in China is the highest in the world, but the total deaths in China is not the most (Compare to the 2nd one-Italy)</p>
+<br>
+
+<h2> 3.U.S. Analysis</h2>
+<h3> 3.1 Trend in the US</h3>
+<p> US plot with confired, death, and recovered</p>
+```{r us.analys, echo=FALSE,message=FALSE,warning=FALSE}
+#---------------------------------------------------------
+clean.data.2 <- function(un.clean.data)
+{
+  newdata <- un.clean.data[ which(un.clean.data$V2=='US'), ]
+  temp.data<-data.frame(un.clean.data[1,])
+  clean.data<-rbind(temp.data,newdata)
+  clean.data$V2<-NULL
+  clean.data$V3<-NULL
+  clean.data$V4<-NULL
+  temp.data <- data.frame(t(clean.data))
+  #
+  temp.data <-
+    data.frame(lapply(temp.data, as.character), stringsAsFactors = FALSE)
+  #Change the first value to Date
+  temp.data[1, 1] <- 'Date'
+  clean.data <- data.frame(temp.data, header = TRUE)
+  #Convert first row to column header
+  clean.data <- temp.data %>%
+    row_to_names(row_number = 1) %>%
+    clean_names()
+  #Convert first column to date data type
+  clean.data <- clean.data %>%
+    mutate(date = mdy(date))
+  #Create the column vector
+  cols.nums <- vector.creator(2, 247)
+  # Convert Character into numeric
+  clean.data[cols.nums] <- sapply(clean.data[cols.nums], as.numeric)
+  returnValue(clean.data)
+}
+
+#Import the US confirmed data from csv file
+un.clean.data <-
+  read.data.input('data/time_series_19-covid-Confirmed.csv')
+clean.data <- clean.data.2(un.clean.data)
+total.confirmed.us <- clean.data
+
+#Import the US deaths data from csv file
+un.clean.data <-
+  read.data.input('data/time_series_19-covid-Deaths.csv')
+clean.data <- clean.data.2(un.clean.data)
+total.deaths.us <- clean.data
+
+#Import the US recovered data from csv file
+un.clean.data <-
+  read.data.input('data/time_series_19-covid-Recovered.csv')
+clean.data <- clean.data.2(un.clean.data)
+total.recovered.us <- clean.data
+
+#Create the US summary Cases by date
+us.summary.cases <- cbind(
+  data.frame(total.recovered.us[, 1]),
+  data.frame(rowSums(total.confirmed.us[, 2:247])),
+  data.frame(rowSums(total.deaths.us[, 2:247])),
+  data.frame(rowSums(total.recovered.us[, 2:247]))
+)
+
+# Create the US summary cases by col names
+colnames(us.summary.cases)<-
+  c("date", "confirmed", "death", "recovered") 
+
+rm("un.clean.data", "clean.data","temp.data")
+
+```
+
+```{r us.plot, echo=FALSE,message=FALSE,warning=FALSE}
+
+#-------------------------------------------------
+#' 3.1
+#' Print out plot
+#'
+attach(us.summary.cases)
+ggplot(data = us.summary.cases) +
+  geom_line(mapping = aes(x = date,
+                          y = confirmed,color="confirmed")) +
+  geom_point(mapping = aes(x = date,
+                           y = confirmed,color="confirmed"))+
+  geom_line(mapping = aes(x = date,
+                          y = death,color="death")) +
+  geom_point(mapping = aes(x = date,
+                           y = death,color="death")) +
+  geom_line(mapping = aes(x = date,
+                          y = recovered,color="recovered"))+
+  geom_point(mapping = aes(x = date,
+                           y = recovered,color="recovered"))
+detach(us.summary.cases)
+#-------------------------------------------------
+```
+<p>Conclusion: while the death case in the us is low, the recover in the us is lower compare to world wide. The infected case is rising faster than most contry</p>
+
+<h3> 3.2 Trend in the US by date</h3>
+<p> US record of confired, death, and recovered due to COVID-19 by date</p>
+```{r}
+#-------------------------------------------------
+#'
+#' 3.2 Case world by date
+#' Create active column
+#' 
+attach(us.summary.cases)
+us.summary.cases$active <- confirmed -death -recovered
+# Create recovery % column
+us.summary.cases$recovery.percent <-  
+  round((recovered/confirmed)*100,3)
+
+# Create mortality % column
+us.summary.cases$mortality.percent <-  
+  round((death/confirmed)*100,3)
+detach(us.summary.cases)
+
+
+```
+
+```{r}
+# Knit table
+dt <- us.summary.cases[1:50, ]
+kable(dt,format = "markdown", row.names = FALSE, padding =7, caption = "US case by date") 
+```
+<p>Conclusion: while the death case in the us is low, the recover in the us is much lower compare to world wide. The infected case is rising fast in a very short time (due to weather condition)</p>
+
+<h3> 3.3 Trend in the US by state</h3>
+<p> US table by state and province with confired, death, and recovered</p>
+```{r, echo=FALSE,message=FALSE,warning=FALSE}
+#Create the US summary Cases by state and province
+us.summary.cases.by.state <- cbind(
+  data.frame(colSums(total.confirmed.us[, -1])),
+  data.frame(colSums(total.deaths.us[, -1])),
+  data.frame(colSums(total.recovered.us[, -1]))
+)
+
+us.summary.cases.by.state <-tibble::rownames_to_column(us.summary.cases.by.state, "state.province")
+colnames(us.summary.cases.by.state)<-
+  c("state.province", "confirmed", "death", "recovered")
+attach(us.summary.cases.by.state )
+us.summary.cases.by.state $active <- confirmed -death -recovered
+# Create recovery % column
+us.summary.cases.by.state$recovery.percent <-  
+  round((recovered/confirmed)*100,3)
+
+# Create mortality % column
+us.summary.cases.by.state $mortality.percent <-  
+  round((death/confirmed)*100,3)
+detach(us.summary.cases.by.state)
+
+us.summary.cases.by.state <-us.summary.cases.by.state[ order(-us.summary.cases.by.state$confirmed), ] 
+```
+```{r, echo=FALSE,message=FALSE,warning=FALSE}
+# Knit table
+dt <- us.summary.cases.by.state[1:40, ]
+kable(dt,format = "markdown", row.names = FALSE, padding =7, caption = "US case by state") 
+```
+
+
+<p>Conclusion: While NewYork has the most confirmed case, Washington state has the most death case. Most big state (New York, Washington, California, New Jersey, Illinois... ) in the US got more infected cases compared to other state</p>
+
+<h2>4. World wide case and the recover change</h2>
+```{r}
+worldwide.trend$active.percent <-  
+  round((worldwide.trend$active/worldwide.trend$confirmed)*100,3)
+```
+
+<h3>4.1 World wide Plot</h3>
+<p> US table by state and province with confired, death, and recovered</p>
+```{r}
+ggplot(data = worldwide.trend, aes(x=date, y=active.percent)) +
+  geom_bar(stat="identity")
+```
+<p>Conclusion: The active case was lower down to less that 40% in Marc, but it start raise up again quickly. That mean human body can stay against the virus, but the virus's abilty to spread in the population is also very high</p>
+
+<h3>4.2 Worldwide Record with the active percentage</h3>
+<p> Worldwide table by state and province with confired, death, and recovered, active percent</p>
+```{r}
+kable(worldwide.trend,format = "markdown", row.names = FALSE, padding =7, caption = "US case") 
+```
+<p>Conclusion: The active case was at 95% when the record start, but it at 66% at the end of the record. At one point, it was lower down to 42%. That mean we can prevent and recover from the virus, but the virus's abilty to spread in the population is also very high</p>
+
+<h2>5. Conclusion</h2>
+<h3>5.1 What I learn about COVID-19</h3>
+<p>COVID is a worldwide disaster and has kill many people. How ever we can prevent it by keep social distances and personal hygiene.</p>
+<h3>5.2 Data vs. Media</h3>
+<p>What I learn about COVID-19 is not exactly match the media said. COVID-19 is dangerous but we can still put it under control. (Refer to chart 4.2) At one point we are able to lower the spread wordwide (beginning of March) </p>
+<h3>5.3 Advise</h3>
+<p>COVID can spread pretty, and it can kill multiple people. These are advice that I learn from the US CDC:<ul>
+  <li>Regularly and thoroughly clean your hands with an alcohol-based hand rub or wash them with soap and water.</li>
+  <li>Maintain at least 1 metre (3 feet) distance between yourself and anyone who is coughing or sneezing.</li>
+  <li>Avoid touching eyes, nose and mouth</li>
+  <li>Stay home if you feel unwell. </li>
+</ul>
+</p>
