@@ -8,7 +8,7 @@ The sale prediction models implement various machine learning tools to classify 
 
 ![alt](https://github.com/jackyhuynh/data_science_and_visualization/blob/main/R_inventory_prediction/images/1.PNG)
 
-Hypothesis from plot. According to the plot, we can easily see people who buy grocery have a 100% change to buy detergent paper (and vice versa); or people who buy detergent paper will have a change of 75% to 90% to buy milk (and vice versa)... Combine the plotting and statistic together will help business to make correct decision. Please click [here](https://github.com/jackyhuynh/data_science_and_visualization/blob/main/R_inventory_prediction/src/Markdown-WholeSale.pdf) for the full statistic and prediction. 
+Hypothesis from plot. According to the plot, we can easily see people who buy grocery have a 100% change to buy detergent paper (and vice versa); or people who buy detergent paper will have a change of 75% to 90% to buy milk (and vice versa)... Combine the plotting and statistic together will help business to make correct decision. Please click [here](https://github.com/jackyhuynh/data_science_and_visualization/blob/main/R_inventory_prediction/src/Markdown-WholeSale.pdf) for the full statistic and data analyst. 
 
 ### Technology
 * Business Analyst
