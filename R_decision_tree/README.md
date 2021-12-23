@@ -6,7 +6,7 @@
 
 # Summary pf “Outlier Detection: A Survey”, ACM Computing Surveys Vol.41, no. 3. 2009 by V. Chandola, A. Banerjee and V. Kumar
 ## Research Paper:
-Full paper can be found at GitHub by Truc Huynh
+Full paper can be found at <a href="https://github.com/jackyhuynh/data_science-visualization-ML-DL-AI_notebook/blob/main/R_decision_tree/Decision_Tree_Paper.pdf">GitHub</a> by Truc Huynh
 
 ## Summarize three main outlier detection techniques
 #### Supervised outlier detection techniques (2.2.1): 
