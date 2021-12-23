@@ -8,7 +8,7 @@ Include many discipline:
 ## Data Security & Analyst
 
 ## Algorithim
-<img src="https://github.com/jackyhuynh/data_science-visualization-ML-DL-AI_notebook/tree/main/R_decision_tree/images">
+<img src="https://github.com/jackyhuynh/data_science-visualization-ML-DL-AI_notebook/blob/main/R_decision_tree/images/decision_tree.JPG">
 
 ## Business Analyst
 <img src="https://github.com/jackyhuynh/data_science-visualization-ML-DL-AI_notebook/blob/main/Python_Seaborn_data_visualization/images/Seaborn_immigration.JPG" width="1000" height="700" margin-left=auto margin-right=auto>
