@@ -5,13 +5,14 @@ Include many discipline:
 ## Bioinformatic
 <img src="https://github.com/jackyhuynh/data_science-visualization-ML-DL-AI_notebook/blob/main/R_for_bioinformatic/images/bioinformatics.png" width="400" height="400" margin-left=auto margin-right=auto>
 
-## Data Security & Analyst:
+## Data Security & Analyst
 
-## Algorithim:
+## Algorithim
 
-## Business Analyst:
+## Business Analyst
+<img src="https://github.com/jackyhuynh/data_science-visualization-ML-DL-AI_notebook/blob/main/Python_Seaborn_data_visualization/images/Seaborn_immigration.JPG" width="1000" height="700" margin-left=auto margin-right=auto>
 
-## Deep Learning:
+## Deep Learning
 
 ## Contributing
 
