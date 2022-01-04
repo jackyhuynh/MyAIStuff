@@ -1,6 +1,10 @@
 # data_science_and_visualization
-A collection of data science and data visualization, machine learning application using: R, Python, Seaborn, Classification, Matplotlib, Shiny, Outlier, Classification, Neural Network...
+A collection of data science and data visualization, machine learning application using: R, Python, Seaborn, Classification, Matplotlib, Shiny, Outlier, Classification, Neural Network... This is my libary for data preprocessing and sample of data sciences exercises.
 Include many discipline:
+- Bioinformatic
+- Deep Learning
+- Data Security & Analyst
+- Algorithim
 
 ## Bioinformatic
 <img src="https://github.com/jackyhuynh/data_science-visualization-ML-DL-AI_notebook/blob/main/R_for_bioinformatic/images/bioinformatics.png" width="400" height="400" margin-left=auto margin-right=auto>
