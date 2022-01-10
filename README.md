@@ -6,6 +6,23 @@ Include many discipline:
 - Data Security & Analyst
 - Algorithim
 
+## Programing aLanuages:
+### R
+- A modern data science programing languages
+
+#### Prerequisites
+What things you need to install the software and how to install them:
+- R CRAN Project: R is a free software environment for statistical computing and graphics. It compiles and runs on a wide variety of UNIX platforms, Windows and MacOS
+- RStudio IDE: RStudio is an integrated development environment (IDE) for R. It includes a console, syntax-highlighting editor that supports direct code execution, as well as tools for plotting, history, debugging and workspace management. Click here to see more RStudio features. RStudio is available in open source and commercial editions and runs on the desktop (Windows, Mac, and Linux) or in a browser connected to RStudio Server or RStudio Server Pro (Debian/Ubuntu, Red Hat/CentOS, and SUSE Linux)
+
+#### Installing
+A step by step series of examples that tell you how to get a development enviroment running:
+* [Install R](https://www.r-project.org/) - If you haven't downloaded and installed R, here's how to get started.
+* [R Studio IDE](https://rstudio.com/products/rstudio/#:~:text=RStudio%20Take%20control%20of%20your%20R%20code%20RStudio,tools%20for%20plotting,%20history,%20debugging%20and%20workspace%20management.) - After that choose R Studio Desktop, and the free version (unless you have the Pro install). R free version is pretty good IDE.
+
+### Python
+
+
 ## Bioinformatic
 <img src="https://github.com/jackyhuynh/data_science-visualization-ML-DL-AI_notebook/blob/main/R_for_bioinformatic/images/bioinformatics.png" width="400" height="400" margin-left=auto margin-right=auto>
 
