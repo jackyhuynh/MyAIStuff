@@ -6,8 +6,8 @@ Include many discipline:
 - Data Security & Analyst
 - Algorithim
 
-## Programing aLanuages:
-### R
+## Programing Languages:
+### R for Data Science:
 - A modern data science programing languages
 
 #### Prerequisites
@@ -20,7 +20,22 @@ A step by step series of examples that tell you how to get a development envirom
 * [Install R](https://www.r-project.org/) - If you haven't downloaded and installed R, here's how to get started.
 * [R Studio IDE](https://rstudio.com/products/rstudio/#:~:text=RStudio%20Take%20control%20of%20your%20R%20code%20RStudio,tools%20for%20plotting,%20history,%20debugging%20and%20workspace%20management.) - After that choose R Studio Desktop, and the free version (unless you have the Pro install). R free version is pretty good IDE.
 
-### Python
+### Python for Data Science:
+These are packages that are usually used for Data Science:
+- [Python 3 Standard Library](https://docs.python.org/3/index.html)
+- [NumPy Documentation](https://numpy.org/doc/stable/reference/index.html)
+- [Pandas Documentation](https://pandas.pydata.org/docs/)
+- [Mathplotlib Documentation](https://matplotlib.org/2.0.2/index.html)
+
+#### Prerequisites
+What things you need to install the software and how to install them
+- Jupyter Notebook: If you want just test the code, simply go to google and search for jupiter notebook or another Python online IDE. The Jupyter Notebook is an open-source web application that allows you to create and share documents that contain live code, equations, visualizations and narrative text. 
+- Anacoda Navigator: Install Anaconda Navigator if you want to develop data-science projects using Python or R. Anaconda Navigator is a desktop graphical user interface included in Anaconda that allows you to launch applications and easily manage conda packages, environments and channels without the need to use command line commands. 
+
+#### Installing
+A step by step series of examples that tell you how to get a development enviroment running
+* [Install Anacoda Navigator](https://docs.anaconda.com/anaconda/navigator/install/#:~:text=Installing%20Navigator%20Navigator%20is%20automatically%20installed%20when%20you,install%20anaconda-navigator.%20To%20start%20Navigator,%20see%20Getting%20Started.) - If you haven't downloaded and installed Anacoda Navigator yet, here's how to get started.
+* [Jupyter Notebook](https://jupyter.org/try) - Click here to go to the online free Jupiter Notebook.
 
 
 ## Bioinformatic
