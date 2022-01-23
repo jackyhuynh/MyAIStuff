@@ -5,6 +5,9 @@ Include many discipline:
 - Deep Learning
 - Data Security & Analyst
 - Algorithim
+## References
+Good references for data scientist:
+- Khuyen Tran: [Efficient_Python_tricks_and_tools_for_data_scientists](https://khuyentran1401.github.io/Efficient_Python_tricks_and_tools_for_data_scientists/README.html)
 
 ## Programing Languages:
 ### R for Data Science:
