@@ -1,14 +1,14 @@
 # data_science_and_visualization
 A collection of data science and data visualization, machine learning application using: R, Python, Seaborn, Classification, Matplotlib, Shiny, Outlier, Classification, Neural Network... This is my libary for data preprocessing and sample of data sciences exercises.
 Include many discipline:
-- Bioinformatic
+- Bioinformatic 
 - Deep Learning
 - Data Security & Analyst
 - Algorithim
 ## References
 Good references for data scientist:
 - Khuyen Tran: [Efficient_Python_tricks_and_tools_for_data_scientists](https://khuyentran1401.github.io/Efficient_Python_tricks_and_tools_for_data_scientists/README.html)
-
+- Truc Huynh Rpubs: [Bioinformatic](https://rpubs.com/jackyhuynh87)
 ## Programing Languages:
 ### R for Data Science:
 - A modern data science programing languages
