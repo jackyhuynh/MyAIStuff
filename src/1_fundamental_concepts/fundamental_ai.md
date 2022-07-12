@@ -19,3 +19,16 @@ that agent possibly can make -> Tax is Utility based agent. Example: If we have 
 - Utility-based agent
 - Goal-based agent
 - Learning Agent
+
+Minimum agent:
+- Performance:
+    - point at certain location. Criteria where the range of the heat.
+    - Align the position of the mirror
+    - Tracking the position of the sun
+- Environment:
+    - Partially Observable
+    - Multi-agent
+    - Stochastic
+    - Dynamic
+    - Continuous
+    -
