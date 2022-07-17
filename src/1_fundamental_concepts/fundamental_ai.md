@@ -12,7 +12,11 @@ that agent possibly can make -> Tax is Utility based agent. Example: If we have 
 - Example 2:
     - What is the minimum agent required to build a robot to vacuum your home?
     - I choose Goal-based to make sure it clean (cover every inch of the house). The tools in this case is what you can make. Track that I cover every square inch.
-    - Model-based is like simple-reflex except with a memory of past action, right?
+    - Model-based is like simple-reflex except with a memory of past action
+    - if the vac bot remembers where it has been and does something with that memory it is sequential
+if it does nothing or has not memory it is episodic
+
+
 ## Agent type:
 - Simple Reflex Agent
 - Model-based agent
