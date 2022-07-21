@@ -42,6 +42,7 @@ class Search(Node):
     def __init__(self):
         self.visited = []  # the list of nodes that have been visited thus far
         self.queue = []  # a First-In-First-Out (FIFO) queue
+        self.stack = []
         self.weightedQueue = {}  # a weighted queue for priorities (currently not used)
         self.newNodes = []  # (currently not used)
         self.neighborL = []
@@ -68,8 +69,47 @@ class Search(Node):
                 for neighbor in nList:
                     if neighbor not in self.visited and neighbor not in self.queue:
                         self.queue.append(neighbor)
-     
-                        
+
+
+    def dfs(self, node, goalCity, G):
+        self.visited.append(node)
+        self.stack.append(node)
+        self.node = str(node)
+        self.neighborList = (G.adj[node])
+
+        while self.stack:
+            s = self.stack.pop(0)
+            nList = self.getNeighbor(s)
+            if (s == goalCity):
+                print("Found: ", goalCity,"")
+                self.return_path.append(goalCity)
+                self.find_path(goalCity) # i did not debug this return path for dfs
+                break
+            else:
+                self.visited.append(s)
+                for neighbor in nList:
+                    if neighbor not in self.visited and neighbor not in self.queue:
+                        self.stack.insert(0, neighbor)
+
+
+    def find_path(self, goalCity):
+        currNode = goalCity
+        neighbor = list(G.adj[currNode])
+
+        for n in neighbor:
+            if n == self.visited[0]:
+                self.return_path.insert(0, n)
+                print("Here is the path to the goal")
+                print(self.return_path)
+                break
+
+            if n in self.visited and n not in self.return_path:
+                self.return_path.insert(0, n)
+                self.find_path(n)
+                if self.return_path[0] == self.visited[0]:
+                    break
+
+
     def getNeighbor(self, CurrNode):
         """
         A class method that returns a list of nodes that are the neighbor,
@@ -86,28 +126,28 @@ class Search(Node):
         newNeighbor = new_nodes
         self.neighborL.append(new_nodes)
         return newNeighbor    
-            
 
 
-
+"""
+"""
 def callingSearch(startCity, goalCity, typeOfSearch, G):
     g = Search()
     if typeOfSearch == "bfs":
-        g.bfs(startCity, goalCity, G)   
+        g.bfs(startCity, goalCity, G)
+    elif typeOfSearch == "dfs":
+        g.dfs(startCity, goalCity, G)
         
 
-
 if __name__ == "__main__":
-    
     in_file = "frenchcities.txt"
-
     StartCity = "Nantes"
     GoalCity = "Nancy"
-    type_of_search = "bfs"
-
+    #
     road_list = open_file(in_file)
     G = create_tree(road_list)
-   
-    print("Starting Node: " + StartCity)
-    callingSearch(StartCity, GoalCity, type_of_search, G)
+
+    print("bfs")
+    callingSearch(StartCity, GoalCity, "bfs", G)
+    print("dfs")
+    callingSearch(StartCity, GoalCity, "dfs", G)
     
