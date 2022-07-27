@@ -61,7 +61,11 @@ population = [1, 2, 3, 4, 5, 6] #bandit arms
 probabilities = [.1, .05, .05, .2, .4, .2] #probabilites
 print(choices(population, probabilities))
 
-
+"""
+Estimate the selection item.
+random search: designing a printer: speed (speed per pages), cost
+categorizing unknown threats: persistent threat, file injection, code injection, MITM/ user: 
+"""
 
 
 
