@@ -26,10 +26,9 @@ with open('homes.csv', newline='') as csvfile:
 
 #Introduction to dataframes and csv reader    
 df = pd.read_csv('homes.csv')
-#for column in df:
-    #print(column)
-    #print(df[column])
-
+for column in df:
+    print(column)
+    print(df[column])
 
 
 
