@@ -8,19 +8,17 @@ stationary bandit code.  It should be adapted
 by the students for their work.
 """
 
+import csv
+import random
 
-import csv, random
 
-
-        
-    
 class BanditSet(object):
     """
     This object represents a set of arms for a stationary multi-armed 
     bandit problem it will store a fixed set of arms from a set and
     will then maintain them over multiple iterations.
     """
-    
+
     def __init__(self, DataRows, ArmNames, ExpRate,
                  DistribParam, DecayRate, RewardWeight):
         """
@@ -32,18 +30,18 @@ class BanditSet(object):
 
         # Store the Data for later use.
         self.Data = DataRows
-        
+
         # Initialize the parameters.
-        self.ExplorationRate       = ExpRate
+        self.ExplorationRate = ExpRate
         self.DistributionParameter = DistribParam
-        self.DecayRate             = DecayRate
-        self.RewardWeight          = RewardWeight
+        self.DecayRate = DecayRate
+        self.RewardWeight = RewardWeight
 
         # Store items for each of the arms.
-        self.Names         = ArmNames
+        self.Names = ArmNames
 
         # Store a list for the weights.
-        self.Weights       = [-1 for I in len(ArmNames)]
+        self.Weights = [-1 for I in len(ArmNames)]
 
         # Calculate the starting probability and add it.
         StartProb = 1 / float(len(ArmNames))
@@ -52,12 +50,10 @@ class BanditSet(object):
         # And store the Cumulative Reward
         self.CumulativeReward = 0
 
-
-
     def handleRows(self):
         """
         Process each of the rows and update our running reward 
-        and the basic probabilies for each one.
+        and the basic probabilities for each one.
         """
         # We initialize the cumulative
         # Reward to be 0
@@ -72,10 +68,8 @@ class BanditSet(object):
             # Update the reward weight.
             # And update the probabilities.
 
-
         # Return the cumulative reward.
-        return(self.CumulativeReward)
-    
+        return self.CumulativeReward
 
     def pickArmIndex(self):
         """
@@ -85,15 +79,13 @@ class BanditSet(object):
         """
         pass
 
-
     def getReward(self, Index):
         """
         Use the Armnames to get the reward for the 
         chosen arm.
         """
         pass
-        
-    
+
     def updateWeight(self, Index, Reward):
         """
         Update the weight for the chosen index using 
@@ -101,18 +93,14 @@ class BanditSet(object):
         """
         pass
 
-
     def updateProbability(self, Index):
         """
         Update the probability for the index from its weight.
         """
         pass
 
-
     def normalizeProbabilities(self, Index, Reward):
         """
         Normalize the probability values.
         """
         pass
-        
-        
