@@ -1,9 +1,7 @@
-# TEMPLATE for JUPITER notebook
+# AI for beginner
 
 ## Introduction
-
-## Documents/Research Paper
-Link your research paper <a href="https://github.com/jackyhuynh/template-git-jupiter-notebook-md/blob/main/documents/resarch-sample.pdf">here</a> if you need
+AI for beginner contain 10 lesson for artifical intelligent
 
 ## Technology
 List of technology
