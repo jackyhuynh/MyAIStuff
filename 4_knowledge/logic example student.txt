@@ -1,0 +1,77 @@
+﻿Basic F1 Example
+==============================================
+Example of logic problems based on Formula 1.
+
+
+
+Each elements in Knowledge base is True
+
+Basic Statements
+--------------------------------------------
+
+Lewis Hamilton is an F1 driver.
+Max Verstappen is an F1 driver.
+Charles LecLerc is an F1 driver.
+If a driver takes pole position, they have the fastest car.
+An F1 driver will win the race if and only if they finish the race in first place and did not crash.
+If a driver crashes, they lose the race.
+Charles LecLerc did not crash.
+Max Verstappen crashed.
+Lewis Hamilton did not crash.
+Charles LecLerc took pole position.
+Charles LecLerc finished first place in the race.
+
+Questions / Goals
+---------------------------------------------
+Did Charles LecLerc win the race?
+Did Lewis Hamilton win the race?
+
+FOL Format
+--------------------------------
+f1_driver(lh)
+f1_driver(mv)
+f1_driver(cl)
+not_crash(cl)
+crash(mv)
+not_crash(lh)
+took_pole(cl)
+finished_first(cl)
+there exists X: F1_driver(X) & took_pole(X) -> fastest_car(X)
+there exists X: f1_driver(X) & win_race(X) <=> finish_first(X) & not_crash(X)
+For all X: f1_driver(X) & crash(X) -> lose_race(X)
+
+
+Forward Chaining Example
+---------------------------------------
+Win_race(cl) = ? = true
+
+F1_driver(lh) = true
+F1_driver(mv) = true
+F1_driver(cl) = true
+Not_Crash(cl) = true
+Crash(mv) = true
+Not_crash(lh) = true
+Took_pole(cl) = true
+Finished_first(cl) = true
+F1_driver(cl) & took_pole(cl) -> fastest_car(X)      true & true -> true
+Fastest_car(cl) = true
+F1_driver(cl) & win_race(X) <=> finish_first(cl) & not_crash(cl)         true & _true  true & true
+Win_race(cl) = true
+
+
+
+Backward Chaining Example
+----------------------------------
+Win_race(cl) = ?
+
+F1_driver(cl) & win_race(cl) <=> finish_first(cl) & not_crash(cl)  true & _true_  true & true
+F1_driver(cl) = true
+Finished_first(cl) = true
+Not_Crash(cl) = true
+Win_race(cl) = true
+
+forward chaining is useful when trying to discover new information, without a sense of a clear or specific goal
+backward chaining if goal oriented is *
+
+
+
