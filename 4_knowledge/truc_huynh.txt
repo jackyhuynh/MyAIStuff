@@ -1,0 +1,50 @@
+
+Basic Statements
+--------------------------------------------
+Truc is an employee
+Garrn is an employee
+Shames is an employee
+An employee is the employee of the month if and only if he/she make the most sale, and check email daily
+If employees forget to check their email, they will not consider the employee of the month
+Truc did not check email daily
+Garron check email daily
+Shames check email daily
+Shames make the most of sale
+
+FOL Format
+--------------------------------
+employee(t)
+employee(g)
+employee(s)
+not_check(t)
+check(g)
+check(s)
+most_sale(s)
+there exists X: employee(X) & most_sale(X) & check(X)  <=> em_month(X)
+for all X: employee(X) & not_check(X) -> lose_prize(X)
+
+Forward Chaining
+---------------------------------------
+em_month(s) = ? = true
+
+employee(t) = true
+employee(g) = true
+employee(s) = true
+not_check(t) = true
+check(g) = true
+check(s) = true
+most_sale(s) = true
+
+employee(s) & most_sale(s) & check(s) <=> em_months(s) true & true & true <=> true
+
+
+Backward Chaining Example
+----------------------------------
+em_month(s) = ? true
+
+employee(s) & most_sale(s) & check(s)  <=> em_month(s) true & true & true  <=> true
+
+
+Forward Chaining
+---------------------------------------
+em_month(s) = ?
