@@ -56,7 +56,13 @@ def resolveStatements(StatementA, StatementB):
         Aval = StatementA[Index]
         Bval = StatementB[Index]
         
-        NewStatement.append(Aval + Bval)
+        # NewStatement.append(Aval + Bval)
+        if (Aval + Bval) > 1:
+            NewStatement.append(1) 
+        elif (Aval + Bval) < -1:
+            NewStatement.append(-1)
+        else:
+            NewStatement.append(Aval + Bval)
 
     return(tuple(NewStatement))
 
@@ -84,4 +90,7 @@ print(resolveStatements(Statement1, Statement2))
 #
 # How would you represent it as a dict?  And how would the code
 # above need to change?
+
+
+
     
