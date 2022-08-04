@@ -76,7 +76,6 @@ print("\nChecking 1 and 2")
 print(check1off(Statement1, Statement2))
 print("\nChecking 1 and 3")
 print(check1off(Statement1, Statement3))
-
 print("\nResolving 1 and 2")
 print(resolveStatements(Statement1, Statement2))
 
