@@ -1,0 +1,138 @@
+﻿Basic F1 Example
+==============================================
+Example of logic problems based on Formula 1.
+
+
+Basic Statements
+--------------------------------------------
+
+Lewis Hamilton is an F1 driver.\
+Max Verstappen is an F1 driver.\
+Charles LecLerc is an F1 driver.\
+If a driver takes pole position, they have the fastest car.\
+An F1 driver will win the race if and only if they finish the race in first place and did not crash.\
+If a driver crashes, they lose the race.\
+Charles LecLerc did not crash.\
+Max Verstappen crashed.\
+Lewis Hamilton did not crash.\
+Charles LecLerc took pole position.\
+Charles LecLerc finished first place in the race.
+
+Questions / Goals
+---------------------------------------------
+
+Did Charles LecLerc win the race?\
+Did Lewis Hamilton win the race?
+
+
+
+FOL Format
+--------------------------------
+
+f1_driver(lh)\
+f1_driver(mv)\
+f1_driver(cl)\
+there exists X, f1_driver(X) and takes_pole(X) -> fastest_car(X)\
+for all X, f1_driver(X) and crashes_(X) -> lose_race(X)\
+there exists X, f1_driver(X) and win_race(X)  finish_first(X) and not crash(X)\
+Not crash(cl)\
+Not crash(lh)\
+crash(mv)\
+takes_pole(lh)\
+finished_first(cl)
+
+
+
+
+
+
+Forward Chaining Example
+---------------------------------------
+
+win_race(cl)
+
+f1_driver(lh) = true\
+f1_driver(mv) = true\
+f1_driver(cl) = true\
+not_crash(cl) = true\
+not_crash(lh) = true\
+not_crash(mv) = false\
+takes_pole(cl) = true\
+finished_first(cl) = true\
+there exists X, f1_driver(lh) and takes_pole(lh) -> fastest_car(lh)  = true and false -> false\
+there exists X, f1_driver(mv) and not_crashes_(mv) -> lose_race(mv) = true and false -> true\
+there exists X, f1_driver(cl) and win_race(cl) <-> finish_first(cl) and not crash(cl) = true and ? <-> true and true      = win_race(eo) = true
+
+
+
+
+
+Backward Chaining Example
+----------------------------------
+
+win_race(cl)
+
+there exists X, f1_driver(cl) and win_race(cl) <-> finish_first(cl) and not crash(cl) = true and ? <-> true and true 
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Basic Statements
+--------------------------------------------
+Truc is an employee
+Garrn is an employee
+Shames is an employee
+An employee is the employee of the month if and only if he/she make the most sale, and check email daily
+If employees forget to check their email, they will not consider the employee of the month
+Truc did not check email daily
+Garron check email daily
+Shames check email daily
+Shames make the most of sale
+
+FOL Format
+--------------------------------
+employee(t)
+employee(g)
+employee(s)
+not_check(t)
+check(g)
+check(s)
+most_sale(s)
+there exists X: employee(X) & most_sale(X) & check(X)  <=> em_month(X)
+for all X: employee(X) & not_check(X) -> lose_prize(X)
+
+Forward Chaining
+---------------------------------------
+em_month(s) = ? = true
+
+employee(t) = true
+employee(g) = true
+employee(s) = true
+not_check(t) = true
+check(g) = true
+check(s) = true
+most_sale(s) = true
+
+employee(s) & most_sale(s) & check(s) <=> em_months(s) true & true & true <=> true
+
+
+Backward Chaining Example
+----------------------------------
+em_month(s) = ? true
+
+employee(s) & most_sale(s) & check(s)  <=> em_month(s) true & true & true  <=> true
+
+
+Forward Chaining
+---------------------------------------
+em_month(s) = ?
+
+
+
+
+
+
+6. combine 4 and 5 -> W or I or F or Not F -> W or I
+7. combine 2 and 6 -> not W or I or W or I -> I
+8. combine 1 and 7 -> A or Not I or I -> A
+9. combine 3 and 8 -> Not A or A -> empty set -> F is true
