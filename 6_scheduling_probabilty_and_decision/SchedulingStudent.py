@@ -15,9 +15,6 @@ import re
 import networkx
 import matplotlib.pyplot as pyplot
 
-
-
-
 # 
 # ==================================
 
@@ -31,6 +28,7 @@ class SchedulingProblem(object):
     
     # Initialization
     # ---------------------------------------
+    
     def __init__(self, FileName):
         """
         Load in the specified file.  And generate
@@ -140,3 +138,8 @@ class SchedulingProblem(object):
         
         networkx.draw(self.Graph, with_labels=True, arrows=True)
         pyplot.show()
+
+
+if __name__ == "__main__":
+    problems = SchedulingProblem('team')
+    problems.drawgraph()
