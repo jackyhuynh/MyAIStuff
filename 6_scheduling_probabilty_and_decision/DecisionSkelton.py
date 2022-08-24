@@ -9,6 +9,7 @@
 # this code provides is a set of basic objects for doing the
 # code and the calculations.
 
+import SchedulingStudent.py
 
 class DecRoot(object):
     """
@@ -152,3 +153,6 @@ if __name__ == "__main__":
 
     LotTest = Lottery("LotTest", [(0.1, Leaf1), (0.9, Leaf2)])
     print(LotTest.get_value())
+    
+    problems = SchedulingProblem(DecTest)
+    problems.drawgraph()
