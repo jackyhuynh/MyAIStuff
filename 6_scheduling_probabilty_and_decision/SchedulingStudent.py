@@ -6,7 +6,7 @@
 # class structure for the problem and should be used as
 # a guide for implementation.
 
-
+import csv
 
 # Imports
 # ==================================
