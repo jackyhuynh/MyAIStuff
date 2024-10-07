@@ -32,24 +32,13 @@ This repository serves as a comprehensive knowledge base and use case collection
 
 ---
 
-## Python for Data Science, AI/ML Tools:
-Here are some essential Python libraries used in data science, AI, and machine learning:
+## Python, R for Data Science, AI/ML Tools:
+Here are some essential Python libraries used in data science, AI, and machine learning that you may need:
 
 - **[Python 3 Standard Library](https://docs.python.org/3/index.html)**: Documentation for built-in Python features.
 - **[NumPy](https://numpy.org/doc/stable/reference/index.html)**: A library for numerical computations with arrays.
 - **[Pandas](https://pandas.pydata.org/docs/)**: A powerful tool for data manipulation and analysis.
 - **[Matplotlib](https://matplotlib.org/2.0.2/index.html)**: A popular plotting library for creating static and interactive visualizations.
-
----
-
-## Getting Started
-
-These instructions will help you set up a local development environment for running and testing the lessons in this project.
-
-### Prerequisites:
-
-Before you begin, ensure you have the following tools installed:
-
 - **[R](https://www.r-project.org/)**: Free software environment for statistical computing and graphics.
 - **[RStudio IDE](https://rstudio.com/)**: Integrated development environment (IDE) for R with powerful tools for plotting, debugging, and workspace management.
 - **Jupyter Notebook**: An open-source web application for creating and sharing live code, visualizations, and narrative text.
