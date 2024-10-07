@@ -12,6 +12,7 @@
 Statement1 = (-1, 1, 0, 0, 0)
 Statement2 = (0, -1, -1, 1, 0)
 
+
 # Performing resolution on the two tasks would then be a
 # matter of first checking that they only differ by one
 # and then going through and keeping the singleton variable.
@@ -22,7 +23,7 @@ def check1off(StatementA, StatementB):
     through a simple for loop.
     """
     Count = 0
-    
+
     for Index in range(len(StatementA)):
 
         Aval = StatementA[Index]
@@ -35,10 +36,10 @@ def check1off(StatementA, StatementB):
 
         # Short circuit the loop if needed.
         if (Count > 1):
-            return(False)
+            return (False)
 
     # Indicate success.
-    return(True)
+    return (True)
 
 
 # Having implemented the difference then handle the production
@@ -55,22 +56,21 @@ def resolveStatements(StatementA, StatementB):
 
         Aval = StatementA[Index]
         Bval = StatementB[Index]
-        
+
         # NewStatement.append(Aval + Bval)
         if (Aval + Bval) > 1:
-            NewStatement.append(1) 
+            NewStatement.append(1)
         elif (Aval + Bval) < -1:
             NewStatement.append(-1)
         else:
             NewStatement.append(Aval + Bval)
 
-    return(tuple(NewStatement))
+    return (tuple(NewStatement))
 
 
 # Now we can show the effect of these with different
 # statements.
 Statement3 = (-1, -1, 0, 0, -1)
-
 
 print("\nChecking 1 and 2")
 print(check1off(Statement1, Statement2))
@@ -78,7 +78,6 @@ print("\nChecking 1 and 3")
 print(check1off(Statement1, Statement3))
 print("\nResolving 1 and 2")
 print(resolveStatements(Statement1, Statement2))
-
 
 # The primary advantage of the tuple is that it is immutable
 # and thus uses less space and is more efficient for iteration
@@ -89,7 +88,3 @@ print(resolveStatements(Statement1, Statement2))
 #
 # How would you represent it as a dict?  And how would the code
 # above need to change?
-
-
-
-    

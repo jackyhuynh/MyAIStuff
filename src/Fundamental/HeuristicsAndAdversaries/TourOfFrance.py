@@ -3,8 +3,9 @@
 """
 
 import re  # library for regular expression operations
-import pandas as pd
+
 import networkx as nx  # library for graphs (that have nodes & edges) or networks
+import pandas as pd
 
 
 def open_file(in_file):
@@ -18,14 +19,14 @@ def open_file(in_file):
             road = myString.strip().split(',')  # e.g., ['Brest', 'Rennes', '244']
             # now add the road to the list of roads
             roadsList.append(road)
-            
+
     return roadsList
 
 
 def create_tree(node_list):
     df = pd.DataFrame(node_list, columns=['City1', 'City2', 'KM'])
     G = nx.from_pandas_edgelist(df, 'City1', 'City2', edge_attr='KM')
-    
+
     return G  # a graph object from the networkx library
 
 
@@ -39,6 +40,7 @@ class Search(Node):
     """
     A Python class to implement various search procedures, such as BFS.
     """
+
     def __init__(self):
         self.visited = []  # the list of nodes that have been visited thus far
         self.queue = []  # a First-In-First-Out (FIFO) queue
@@ -60,16 +62,15 @@ class Search(Node):
             self.visited.append(node)
             nList = self.getNeighbor(node)
             if (node == goalCity):
-                        print("Found:", goalCity,"")
-                        print("These are visited nodes\n >>>", self.visited, "\n")
-                        
-                        self.return_path.append(goalCity)
-                        break
+                print("Found:", goalCity, "")
+                print("These are visited nodes\n >>>", self.visited, "\n")
+
+                self.return_path.append(goalCity)
+                break
             else:
                 for neighbor in nList:
                     if neighbor not in self.visited and neighbor not in self.queue:
                         self.queue.append(neighbor)
-
 
     def dfs(self, node, goalCity, G):
         self.visited.append(node)
@@ -81,16 +82,15 @@ class Search(Node):
             s = self.stack.pop(0)
             nList = self.getNeighbor(s)
             if (s == goalCity):
-                print("Found: ", goalCity,"")
+                print("Found: ", goalCity, "")
                 self.return_path.append(goalCity)
-                self.find_path(goalCity) # i did not debug this return path for dfs
+                self.find_path(goalCity)  # i did not debug this return path for dfs
                 break
             else:
                 self.visited.append(s)
                 for neighbor in nList:
                     if neighbor not in self.visited and neighbor not in self.queue:
                         self.stack.insert(0, neighbor)
-
 
     def find_path(self, goalCity):
         currNode = goalCity
@@ -109,7 +109,6 @@ class Search(Node):
                 if self.return_path[0] == self.visited[0]:
                     break
 
-
     def getNeighbor(self, CurrNode):
         """
         A class method that returns a list of nodes that are the neighbor,
@@ -122,21 +121,23 @@ class Search(Node):
             if n not in self.queue:  # if the neighbor isn't already waiting in the queue
                 if n not in self.visited:  # ... and if we haven't already visited it
                     new_nodes.append(n)  # then add it to the list of "new nodes"
-                    
+
         newNeighbor = new_nodes
         self.neighborL.append(new_nodes)
-        return newNeighbor    
+        return newNeighbor
 
 
 """
 """
+
+
 def callingSearch(startCity, goalCity, typeOfSearch, G):
     g = Search()
     if typeOfSearch == "bfs":
         g.bfs(startCity, goalCity, G)
     elif typeOfSearch == "dfs":
         g.dfs(startCity, goalCity, G)
-        
+
 
 if __name__ == "__main__":
     in_file = "frenchcities.txt"
@@ -150,4 +151,3 @@ if __name__ == "__main__":
     callingSearch(StartCity, GoalCity, "bfs", G)
     print("dfs")
     callingSearch(StartCity, GoalCity, "dfs", G)
-    

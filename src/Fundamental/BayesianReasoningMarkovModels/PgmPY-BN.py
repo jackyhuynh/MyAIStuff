@@ -8,12 +8,11 @@
 # will generate a basic network, plot it, give tables,
 # and let us run some simple inference. 
 
+from pgmpy.factors.discrete import TabularCPD
+from pgmpy.inference import VariableElimination
 # Imports
 # ========================================
 from pgmpy.models import BayesianModel
-from pgmpy.inference import VariableElimination
-from pgmpy.factors.discrete import TabularCPD
-
 
 # This call sets up the basic alarm network.  Here we
 # are instantiating a BN class and giving it the variables
@@ -24,9 +23,6 @@ alarm_model = BayesianModel([('Burglary', 'Alarm'),
                              ('Earthquake', 'Alarm'),
                              ('Alarm', 'JohnCalls'),
                              ('Alarm', 'MaryCalls')])
-
-
-
 
 # Now we specify the conditional probability tables for each
 # of the variables.  Because we specified the parents above
@@ -45,11 +41,9 @@ cpd_burglary = TabularCPD(
     variable_card=2,
     values=[[.999], [0.001]])
 
-
 cpd_earthquake = TabularCPD(
     variable='Earthquake', variable_card=2,
     values=[[0.998], [0.002]])
-
 
 # In this case Alarm has 2 parents so we need to specify the
 # table of variables with the odds of it being 0 if they
@@ -66,13 +60,11 @@ cpd_alarm = TabularCPD(
     evidence_card=[2, 2])
 
 cpd_johncalls = TabularCPD(variable='JohnCalls', variable_card=2,
-                      values=[[0.95, 0.1], [0.05, 0.9]],
-                      evidence=['Alarm'], evidence_card=[2])
+                           values=[[0.95, 0.1], [0.05, 0.9]],
+                           evidence=['Alarm'], evidence_card=[2])
 cpd_marycalls = TabularCPD(variable='MaryCalls', variable_card=2,
-                      values=[[0.99, 0.3], [0.01, 0.7]],
-                      evidence=['Alarm'], evidence_card=[2])
-
-
+                           values=[[0.99, 0.3], [0.01, 0.7]],
+                           evidence=['Alarm'], evidence_card=[2])
 
 # Since we defined the conditional probability tables for each
 # of our variables as separate objects it is now necessary to
@@ -80,7 +72,6 @@ cpd_marycalls = TabularCPD(variable='MaryCalls', variable_card=2,
 # links them based upon the variable names that we specified.
 
 alarm_model.add_cpds(cpd_burglary, cpd_earthquake, cpd_alarm, cpd_johncalls, cpd_marycalls)
-
 
 # We can perform a simple check to show if the model is valid here.
 print(alarm_model.check_model())
@@ -99,16 +90,15 @@ print("\n")
 print(alarm_model.get_independencies())
 print("\n")
 
-
 # You can plot the model using networkx although that produces errors
 # on some GUI displays.
 import networkx as nx
 import pylab
 
-#nx_graph = nx.DiGraph(alarm_model.edges())   #lines 108 and 109 will run if 111 does not 
-#nx.draw(nx_graph, with_labels=True)
+# nx_graph = nx.DiGraph(alarm_model.edges())   #lines 108 and 109 will run if 111 does not
+# nx.draw(nx_graph, with_labels=True)
 
-nx.draw(alarm_model, with_labels=True)        #this line may cause an error
+nx.draw(alarm_model, with_labels=True)  # this line may cause an error
 
 pylab.show()
 
@@ -120,8 +110,7 @@ alarm_infer = VariableElimination(alarm_model)
 # And get the output for John calling if Earthquake is 1.  Note this
 # uses the same general model as the queries shown in the slides.
 query = alarm_infer.query(variables=["JohnCalls"],
-                          evidence={"Earthquake" : 1}, show_progress=False)
+                          evidence={"Earthquake": 1}, show_progress=False)
 
 print("\n")
 print(query)
-

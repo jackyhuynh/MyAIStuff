@@ -27,10 +27,8 @@
 
 # Once installed you can import Kanren directly to run the
 # remainder of the code. 
- 
+
 import kanren
-
-
 
 # Logic Programming Example.
 # ---------------------------------------------------------
@@ -45,7 +43,6 @@ import kanren
 # case as a parent.
 
 parent = kanren.Relation()
-
 
 # Then we define a database of facts that represent the parens
 # of polish nobility.  Each of these is an individual declaration
@@ -70,14 +67,12 @@ kanren.facts(parent,
 
 X = kanren.var()
 
-
 # Now we run a query seeking the parents of charles, either the first parent
 # two of them, or all of them.
 
 kanren.run(1, X, parent("Charles VII", X))
 kanren.run(2, X, parent("Charles VII", X))
 kanren.run(0, X, parent("Charles VII", X))
-
 
 # Complex queries can involve multiple variables which we put together to
 # form an implicit conjunction.  Here we are looking for any X that
@@ -97,11 +92,13 @@ kanren.run(0, X, parent("Charles VII", Y), parent(Y, X))
 
 def grandparent(X, Z):
     M = kanren.var()
-    return(kanren.conde((parent(X, M), parent(M, Z))))
+    return (kanren.conde((parent(X, M), parent(M, Z))))
+
 
 def great_grandparent(X, Z):
     M = kanren.var()
-    return(kanren.conde((parent(X, M), grandparent(M, Z))))
+    return (kanren.conde((parent(X, M), grandparent(M, Z))))
+
 
 kanren.run(0, X, grandparent("Charles VII", X))
 kanren.run(0, X, great_grandparent("Charles VII", X))
@@ -114,15 +111,14 @@ kanren.run(0, X, great_grandparent("Charles VII", X))
 
 def ancestor(X, Z):
     M = kanren.var()
-    return(kanren.conde((parent(X, Z),),
-                        (grandparent(M, Z),)))
+    return (kanren.conde((parent(X, Z),),
+                         (grandparent(M, Z),)))
 
 
 # As you run each of these notice that all that the code is doing
 # is seeking to map variables to values through unification to
 # make the logical statements correct.  Through the conde, lall
 # and related operations you can build up more complex FOL calls.
-
 
 
 # Constraint Decisions.
@@ -155,10 +151,11 @@ def ancestor(X, Z):
 # between the features as left and right.
 
 def left(X, Y, list):
-   return kanren.membero((X, Y), zip(list, list[1:]))
+    return kanren.membero((X, Y), zip(list, list[1:]))
+
 
 def next(X, Y, list):
-   return kanren.conde([left(Y, X, list)], [left(X, Y, list)])
+    return kanren.conde([left(Y, X, list)], [left(X, Y, list)])
 
 
 # Now we can store all the rules in a single conjunction
@@ -167,29 +164,33 @@ def next(X, Y, list):
 Houses = kanren.var()
 
 Zebra_Rules = kanren.lall(
-   (kanren.eq, (kanren.var(), kanren.var(), kanren.var(), kanren.var(), kanren.var()), Houses),
+    (kanren.eq, (kanren.var(), kanren.var(), kanren.var(), kanren.var(), kanren.var()), Houses),
 
-   (kanren.membero, ('Englishman', kanren.var(), kanren.var(), kanren.var(), 'red'), Houses),
-   (kanren.membero, ('Swede', kanren.var(), kanren.var(), 'dog', kanren.var()), Houses),
-   (kanren.membero, ('Dane', kanren.var(), 'tea', kanren.var(), kanren.var()), Houses),
-   (left,(kanren.var(), kanren.var(), kanren.var(), kanren.var(), 'green'),
-   (kanren.var(), kanren.var(), kanren.var(), kanren.var(), 'white'), Houses),
-   (kanren.membero, (kanren.var(), kanren.var(), 'coffee', kanren.var(), 'green'), Houses),
-   (kanren.membero, (kanren.var(), 'Pall Mall', kanren.var(), 'birds', kanren.var()), Houses),
-   (kanren.membero, (kanren.var(), 'Dunhill', kanren.var(), kanren.var(), 'yellow'), Houses),
-   (kanren.eq,(kanren.var(), kanren.var(), (kanren.var(), kanren.var(), 'milk', kanren.var(), kanren.var()), kanren.var(), kanren.var()), Houses),
-   (kanren.eq,(('Norwegian', kanren.var(), kanren.var(), kanren.var(), kanren.var()), kanren.var(), kanren.var(), kanren.var(), kanren.var()), Houses),
-   (next,(kanren.var(), 'Blend', kanren.var(), kanren.var(), kanren.var()),
-   (kanren.var(), kanren.var(), kanren.var(), 'cats', kanren.var()), Houses),
-   (next,(kanren.var(), 'Dunhill', kanren.var(), kanren.var(), kanren.var()),
-   (kanren.var(), kanren.var(), kanren.var(), 'horse', kanren.var()), Houses),
-   (kanren.membero, (kanren.var(), 'Blue Master', 'beer', kanren.var(), kanren.var()), Houses),
-   (kanren.membero, ('German', 'Prince', kanren.var(), kanren.var(), kanren.var()), Houses),
-   (next,('Norwegian', kanren.var(), kanren.var(), kanren.var(), kanren.var()),
-   (kanren.var(), kanren.var(), kanren.var(), kanren.var(), 'blue'), Houses),
-   (next,(kanren.var(), 'Blend', kanren.var(), kanren.var(), kanren.var()),
-   (kanren.var(), kanren.var(), 'water', kanren.var(), kanren.var()), Houses),
-   (kanren.membero, (kanren.var(), kanren.var(), kanren.var(), 'zebra', kanren.var()), Houses)
+    (kanren.membero, ('Englishman', kanren.var(), kanren.var(), kanren.var(), 'red'), Houses),
+    (kanren.membero, ('Swede', kanren.var(), kanren.var(), 'dog', kanren.var()), Houses),
+    (kanren.membero, ('Dane', kanren.var(), 'tea', kanren.var(), kanren.var()), Houses),
+    (left, (kanren.var(), kanren.var(), kanren.var(), kanren.var(), 'green'),
+     (kanren.var(), kanren.var(), kanren.var(), kanren.var(), 'white'), Houses),
+    (kanren.membero, (kanren.var(), kanren.var(), 'coffee', kanren.var(), 'green'), Houses),
+    (kanren.membero, (kanren.var(), 'Pall Mall', kanren.var(), 'birds', kanren.var()), Houses),
+    (kanren.membero, (kanren.var(), 'Dunhill', kanren.var(), kanren.var(), 'yellow'), Houses),
+    (kanren.eq, (
+    kanren.var(), kanren.var(), (kanren.var(), kanren.var(), 'milk', kanren.var(), kanren.var()), kanren.var(),
+    kanren.var()), Houses),
+    (kanren.eq, (
+    ('Norwegian', kanren.var(), kanren.var(), kanren.var(), kanren.var()), kanren.var(), kanren.var(), kanren.var(),
+    kanren.var()), Houses),
+    (next, (kanren.var(), 'Blend', kanren.var(), kanren.var(), kanren.var()),
+     (kanren.var(), kanren.var(), kanren.var(), 'cats', kanren.var()), Houses),
+    (next, (kanren.var(), 'Dunhill', kanren.var(), kanren.var(), kanren.var()),
+     (kanren.var(), kanren.var(), kanren.var(), 'horse', kanren.var()), Houses),
+    (kanren.membero, (kanren.var(), 'Blue Master', 'beer', kanren.var(), kanren.var()), Houses),
+    (kanren.membero, ('German', 'Prince', kanren.var(), kanren.var(), kanren.var()), Houses),
+    (next, ('Norwegian', kanren.var(), kanren.var(), kanren.var(), kanren.var()),
+     (kanren.var(), kanren.var(), kanren.var(), kanren.var(), 'blue'), Houses),
+    (next, (kanren.var(), 'Blend', kanren.var(), kanren.var(), kanren.var()),
+     (kanren.var(), kanren.var(), 'water', kanren.var(), kanren.var()), Houses),
+    (kanren.membero, (kanren.var(), kanren.var(), kanren.var(), 'zebra', kanren.var()), Houses)
 )
 
 # Finally to solve this we will get the solutions using the same
@@ -215,4 +216,3 @@ Solution = kanren.run(0, Houses, Zebra_Rules)
 for (Owner, Smokes, Drink, Pet, Paint) in Solution[0]:
     if (Pet == "zebra"):
         print(Owner)
-

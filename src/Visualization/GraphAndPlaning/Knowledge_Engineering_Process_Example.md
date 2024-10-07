@@ -1,26 +1,25 @@
 process:
-1.  id task\
-	Do my taxes
 
-2.  assemble knowledge\
-	accountants/tax law professionals...
+1. id task\
+   Do my taxes
 
-3.  select vocab/representation\
-	deductions, credits, adjustments
+2. assemble knowledge\
+   accountants/tax law professionals...
 
-4.  encode general knowledge\
-	filing status: single/single rate but married/married...
+3. select vocab/representation\
+   deductions, credits, adjustments
 
-5.  encode a specific problem\
-	do my specific taxes
+4. encode general knowledge\
+   filing status: single/single rate but married/married...
 
-6.  pose queries\
-	should i file itemized or standard deduction
+5. encode a specific problem\
+   do my specific taxes
 
-7.  debug….\
-	create some test cases...	
+6. pose queries\
+   should i file itemized or standard deduction
 
-
+7. debug….\
+   create some test cases...
 
 Other ideas for Knowledge Engineering...\
 How many manhole covers are there in the US?

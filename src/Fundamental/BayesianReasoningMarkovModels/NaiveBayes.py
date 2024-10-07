@@ -9,8 +9,6 @@
 
 # Imports
 # ===============================
-import csv
-
 
 
 # NB Structure
@@ -20,25 +18,23 @@ class Naive(object):
     This class represents a basic Naive Bayes structure
     given the hypothesis variable and the evidence.
     """
-    
+
     # Initialization
     # --------------------------------
     def __init__(self, SourceFile, HypothesisVariable):
-        
         # General name storage.
         self.HypothesisVar = HypothesisVariable
-        self.EvidenceVars  = []
-        
+        self.EvidenceVars = []
+
         # Storage of frequencies.  This will use 
         # dicts indexed by values.
         self.HypothesisFreqDict = {}
         self.EvidenceFreqDict = {}
-        
+
         # Handle file loading.
         self.SourceFile = SourceFile
         self._load_source_file()
-        
-        
+
     def _load_source_file(self):
         """
         Given the source file name load it and add the values.
@@ -48,16 +44,13 @@ class Naive(object):
         None.
 
         """
-        
+
         # Open the source file.
 
         # For each row update counts for the variables.
-        
+
         # Then based on that set the probabilities.
-    
-    
-    
-    
+
     # Now do calculations.
     # ------------------------------------------
     def get_hypothesis_values(self):
@@ -71,9 +64,8 @@ class Naive(object):
 
         """
         Vals = list(self.HypothesisFreqDict.keys())
-        return(Vals)
-    
-    
+        return (Vals)
+
     def calculate_event_odds(self, HypothesisValue, EvidenceValues):
         """
         Given an event defined by a hypothesis value and a dict of the 
@@ -93,8 +85,7 @@ class Naive(object):
 
         """
         pass
-    
-    
+
     def classify(self, EvidenceValues):
         """
         Given values for the evidence pick the most likely hypothesis value.
@@ -111,7 +102,3 @@ class Naive(object):
         """
 
         pass
-        
-        
-    
-    
