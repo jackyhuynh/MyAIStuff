@@ -9,7 +9,6 @@
 # this code provides is a set of basic objects for doing the
 # code and the calculations.
 
-import SchedulingStudent.py
 
 class DecRoot(object):
     """
@@ -19,8 +18,6 @@ class DecRoot(object):
     have to implement the method.
     """
 
-    
-
     def get_value(self):
         """
         In order to make the classes work every
@@ -28,8 +25,6 @@ class DecRoot(object):
         that is part of how we get outcomes.
         """
         raise RuntimeError("Not Implemented")
-    
-
 
 
 class DecLeaf(DecRoot):
@@ -38,7 +33,6 @@ class DecLeaf(DecRoot):
     and is defined by an ID, and a static value 
     """
 
-
     def __init__(self, ID, Value):
         """
         Initialize with the ID and Value.
@@ -46,14 +40,12 @@ class DecLeaf(DecRoot):
         self.ID = ID
         self.Value = Value
 
-
     def get_value(self):
         """
         Return the static value.
         """
-        return(self.Value)
+        return (self.Value)
 
-    
 
 class Decision(DecRoot):
     """
@@ -64,16 +56,13 @@ class Decision(DecRoot):
     return an ID, and return its' value.
     """
 
-    
     def __init__(self, ID, Choices):
         """
         Initialize with an ID and a list of choices.
         """
 
-        self.ID      = ID
+        self.ID = ID
         self.Choices = list(Choices)
-
-
 
     def get_value(self):
         """
@@ -85,26 +74,25 @@ class Decision(DecRoot):
         """
 
         MaxChoice = self.get_max_choice()
-        MaxValue  = MaxChoice.get_value()
-        return(MaxValue)
-
+        MaxValue = MaxChoice.get_value()
+        return (MaxValue)
 
     def get_max_choice(self):
         """
         Get the maximum value choice and return it.
         """
-        
-        Max    = self.Choices[0]
+
+        Max = self.Choices[0]
         MaxVal = Max.get_value()
 
         for Choice in self.Choices[1:]:
             NewVal = Choice.get_value()
             if (NewVal > MaxVal):
-                Max    = Choice
+                Max = Choice
                 MaxVal = NewVal
 
-        return(Max)
-                
+        return (Max)
+
 
 class Lottery(DecRoot):
     """
@@ -114,16 +102,13 @@ class Lottery(DecRoot):
     calculated for each one.
     """
 
-    
     def __init__(self, ID, Outcomes):
         """
         Initialize with an ID and a list of outcomes.
         """
 
-        self.ID       = ID
+        self.ID = ID
         self.Outcomes = list(Outcomes)
-
-
 
     def get_value(self):
         """
@@ -134,16 +119,13 @@ class Lottery(DecRoot):
         CurrValue = 0
 
         for (Probability, Outcome) in self.Outcomes:
-
-            NewValue  = (Probability * Outcome.get_value())
+            NewValue = (Probability * Outcome.get_value())
             CurrValue += NewValue
 
-        return(CurrValue)
-
+        return (CurrValue)
 
 
 if __name__ == "__main__":
-
     Leaf1 = DecLeaf("A", 10)
     Leaf2 = DecLeaf("B", -12)
 
@@ -153,6 +135,6 @@ if __name__ == "__main__":
 
     LotTest = Lottery("LotTest", [(0.1, Leaf1), (0.9, Leaf2)])
     print(LotTest.get_value())
-    
+
     problems = SchedulingProblem(DecTest)
     problems.drawgraph()

@@ -7,9 +7,10 @@ Copyright:  2021 AI Academy NC State
 The following code will implement the five basic agents for AI
 """
 
+import random
+
 # Import the items.
 import WumpusLib
-import random
 
 """
 Basic agent class
@@ -196,12 +197,3 @@ if __name__ == "__main__":
     # play five games on the same board
     for n in range(5):
         Agent.play_game()
-
-
-
-
-
-
-
-
-

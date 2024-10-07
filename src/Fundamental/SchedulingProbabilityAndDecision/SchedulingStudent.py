@@ -6,16 +6,14 @@
 # class structure for the problem and should be used as
 # a guide for implementation.
 
-import csv
-
 # Imports
 # ==================================
 
-import re
-import networkx
 import matplotlib.pyplot as pyplot
+import networkx
 
-# 
+
+#
 # ==================================
 
 class SchedulingProblem(object):
@@ -25,10 +23,10 @@ class SchedulingProblem(object):
     file and then handle the calculations.  It has a built in 
     method to actually print the directed graph for the user.
     """
-    
+
     # Initialization
     # ---------------------------------------
-    
+
     def __init__(self, FileName):
         """
         Load in the specified file.  And generate
@@ -44,14 +42,12 @@ class SchedulingProblem(object):
         None.
 
         """
-        
+
         # Generate storage.
         self.Graph = networkx.DiGraph()
-        
+
         # Do the file loading.
-        
-        
-        
+
     def __add_task(self, Name, Dur, ParentNames):
         """
         Add in the specified task 
@@ -70,15 +66,14 @@ class SchedulingProblem(object):
         None.
 
         """
-        
+
         self.Grap.add_node(Name, Duration=Dur)
         for ParentName in ParentNames:
             self.Graph.add_edge(ParentName, Name)
-    
-    
+
     # Calculations
     # ---------------------------------------------
-    
+
     def calc_es(self):
         """
         Calculate the early start of each item.
@@ -89,18 +84,15 @@ class SchedulingProblem(object):
         None.
 
         """
-        
+
         # First set the ES of the start.
         self.Graph.nodes["start"]["ES"] = 0
-        
+
         # Then we deal with the subsequent items.
         WorkingNodes = [self.Graph.nodes["start"].successors()]
-        
+
         # Loop till the queue is done.
-        
-        
-        
-        
+
     def calc_node_es(self, NodeName):
         """
         Calculate the ES for the node.
@@ -115,15 +107,11 @@ class SchedulingProblem(object):
         None.
 
         """
-        
+
         # Make sure all the parents are set.
         # Find the slowest parent.
         # Set my value.
-        
-        
-        
-        
-        
+
     # Output
     # --------------------------------------------
     def drawgraph(self):
@@ -135,7 +123,7 @@ class SchedulingProblem(object):
         None.
 
         """
-        
+
         networkx.draw(self.Graph, with_labels=True, arrows=True)
         pyplot.show()
 

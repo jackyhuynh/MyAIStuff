@@ -8,9 +8,6 @@ stationary bandit code.  It should be adapted
 by the students for their work.
 """
 
-import csv
-import random
-
 
 class BanditSet(object):
     """

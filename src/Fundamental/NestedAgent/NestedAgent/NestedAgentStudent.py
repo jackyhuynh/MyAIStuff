@@ -7,10 +7,10 @@ Copyright:  2021 AI Academy NC State
 The following code will implement the five basic agents for AI
 """
 
-# Import the items.
-import WumpusLib
 import random
 
+# Import the items.
+import WumpusLib
 
 """
 Basic agent class
@@ -18,9 +18,9 @@ The class will run 100 moves for the agent
 It has no class variables
 All other agents inherit this agent
 """
+
+
 class BasicAgent(object):
-        
-    
     """
     input: none
     1. set the player position or reset it depending on game play
@@ -30,9 +30,10 @@ class BasicAgent(object):
         c. if the actrion wrapper returns false - you died - otherwise do action
     output: none
     """
+
     def play_game(self):
-        
-        #this line will persist your start location over multiple runs of the game
+
+        # this line will persist your start location over multiple runs of the game
         self.Game.player_pos = self.start_pos
 
         # Iterate the max number of steps.
@@ -56,16 +57,17 @@ Reflex Agent
 This agent will simply move around the board in a specific fashion
 If it finds gold it will pick it up
 """
+
+
 class SimpleReflex(BasicAgent):
-    
     """
     constructor: init gameboard and starting position
     """
+
     def __init__(self, GameBoard):
         self.Game = GameBoard
         self.start_pos = GameBoard.get_curr_room()
-    
-    
+
     """
     input: percepts
     1. if length percepts = 0, then go west
@@ -73,17 +75,17 @@ class SimpleReflex(BasicAgent):
     3. otheriwse go north
     output: the chosen action
     """
+
     def agent_func(self, Percepts):
 
         if (len(Percepts) == 0):
-            return("GoWest")
+            return ("GoWest")
 
         elif ("glint" in Percepts):
-            return("PickupGold")
+            return ("PickupGold")
 
         else:
-            return("GoNorth")
-
+            return ("GoNorth")
 
 
 """
@@ -91,16 +93,17 @@ inherits the basic agent but not the relfex agent
 I wanted it to have a bit more intelligent behavior
 initializes a game board model that is updated throughout the game play
 """
+
+
 class ModelAgent(BasicAgent):
- 
     """
     constructor - init gameboard, start position, and a game model
     """
+
     def __init__(self, GameBoard):
         self.Game = GameBoard
         self.start_pos = GameBoard.get_curr_room()
         self.Game_Model = {}
-
 
     """
     input: none
@@ -110,6 +113,7 @@ class ModelAgent(BasicAgent):
     4. gather all the possible directions the player can move
     output: all of the possible directions
     """
+
     def get_safe_room(self):
         curr_pos = self.Game.get_curr_room()
         posible_directions = []
@@ -133,12 +137,10 @@ class ModelAgent(BasicAgent):
         if (curr_pos - 1) in self.Game_Model.keys():
             if self.Game_Model[curr_pos - 1] != 'wumpus' and self.Game_Model[curr_pos - 1] != 'pit':
                 posible_directions.append('GoWest')
-        else: 
+        else:
             posible_directions.append('GoWest')
 
         return posible_directions
-
-
 
     """
     input: percepts
@@ -154,57 +156,44 @@ class ModelAgent(BasicAgent):
         c. choose a radom space to move to
     output: the chosen direction
     """
+
     def agent_func(self, Percepts):
         if (len(Percepts) == 0):
             self.Game_Model[self.Game.get_curr_room()] = "safe"
-    
+
             posible_directions = self.get_safe_room()
-            index = random.randint(0, len(posible_directions)-1)
+            index = random.randint(0, len(posible_directions) - 1)
             direction = posible_directions[index]
 
-            return direction  
+            return direction
 
         elif ("glint" in Percepts):
             self.Game_Model[self.Game.get_curr_room()] = "gold"
-            return("PickupGold")
+            return ("PickupGold")
 
         else:
             for percept in Percepts:
                 self.Game_Model[self.Game.get_curr_room()] = percept
 
             posible_directions = self.get_safe_room()
-            index = random.randint(0, len(posible_directions)-1)
+            index = random.randint(0, len(posible_directions) - 1)
             direction = posible_directions[index]
 
             return direction
 
 
-
-
-
 if __name__ == "__main__":
-    
-    #initialize a new game - set to true if you want to see messages    
+
+    # initialize a new game - set to true if you want to see messages
     NewGame = WumpusLib.WumpusGame(PrintMessages=True)
-    
-    #print the new board
+
+    # print the new board
     NewGame.printBoard()
 
     # agent calls - un comment which ever one you want to run
     Agent = SimpleReflex(NewGame)
-    #Agent = ModelAgent(NewGame)
-    
+    # Agent = ModelAgent(NewGame)
 
-    
     # play five games on the same board
     for n in range(5):
         Agent.play_game()
-        
-       
-        
-    
-    
-    
-
-
-     
