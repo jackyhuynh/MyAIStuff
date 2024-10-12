@@ -175,11 +175,11 @@ Zebra_Rules = kanren.lall(
     (kanren.membero, (kanren.var(), 'Pall Mall', kanren.var(), 'birds', kanren.var()), Houses),
     (kanren.membero, (kanren.var(), 'Dunhill', kanren.var(), kanren.var(), 'yellow'), Houses),
     (kanren.eq, (
-    kanren.var(), kanren.var(), (kanren.var(), kanren.var(), 'milk', kanren.var(), kanren.var()), kanren.var(),
-    kanren.var()), Houses),
+        kanren.var(), kanren.var(), (kanren.var(), kanren.var(), 'milk', kanren.var(), kanren.var()), kanren.var(),
+        kanren.var()), Houses),
     (kanren.eq, (
-    ('Norwegian', kanren.var(), kanren.var(), kanren.var(), kanren.var()), kanren.var(), kanren.var(), kanren.var(),
-    kanren.var()), Houses),
+        ('Norwegian', kanren.var(), kanren.var(), kanren.var(), kanren.var()), kanren.var(), kanren.var(), kanren.var(),
+        kanren.var()), Houses),
     (next, (kanren.var(), 'Blend', kanren.var(), kanren.var(), kanren.var()),
      (kanren.var(), kanren.var(), kanren.var(), 'cats', kanren.var()), Houses),
     (next, (kanren.var(), 'Dunhill', kanren.var(), kanren.var(), kanren.var()),
