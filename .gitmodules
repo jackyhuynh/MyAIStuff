@@ -4,3 +4,6 @@
 [submodule "DataTidy"]
 	path = DataTidy
 	url = https://github.com/jackyhuynh/DataTidy.git
+[submodule "ComputerVision"]
+	path = ComputerVision
+	url = https://github.com/jackyhuynh/ComputerVision.git
