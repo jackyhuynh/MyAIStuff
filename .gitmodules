@@ -1,3 +1,6 @@
 [submodule "DeepLearning"]
 	path = DeepLearning
 	url = https://github.com/jackyhuynh/DeepLearning.git
+[submodule "DataTidy"]
+	path = DataTidy
+	url = https://github.com/jackyhuynh/DataTidy.git
