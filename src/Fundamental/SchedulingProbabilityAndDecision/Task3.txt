@@ -1,8 +1,0 @@
-start 5 :
-b 10 : start
-e 15 : b
-c 20 : start
-g 15 : c
-f 10 : e g
-d 25 : start
-end 1 : d f
