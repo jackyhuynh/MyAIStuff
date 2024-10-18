@@ -7,3 +7,6 @@
 [submodule "ComputerVision"]
 	path = ComputerVision
 	url = https://github.com/jackyhuynh/ComputerVision.git
+[submodule "UseCase/ProbabilityInRobotic"]
+	path = UseCase/ProbabilityInRobotic
+	url = https://github.com/jackyhuynh/ProbabilityInRobotic.git
